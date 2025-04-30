@@ -12,6 +12,8 @@ import { Card, CardContent } from "@/components/ui/card"
 import { Navigation } from "@/components/Navigation"
 import MapBox from "@/components/map"
 
+import { convertFilesToBase64 } from "@/utils/convertToBase64"
+
 const dmSans = DM_Sans({ subsets: ["latin"] })
 
 export default function LandscapingLanding() {
@@ -20,12 +22,18 @@ export default function LandscapingLanding() {
   const [last, setLast] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
+  const [address, setAddress] = useState("");
   const [job, setJob] = useState("");
   const [information, setInformation] = useState("");
+  const [images, setImages] = useState<File[]>([]);
 
   const [sentSuccess, setSentSuccess] = useState(false);
 
-  async function getFreeQuote() {
+  async function getFreeQuote(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+
+    const base64strings = convertFilesToBase64(images);
+
     const response = await fetch("/api/storeNewClient", {
         method: "POST",
         headers: {
@@ -37,7 +45,8 @@ export default function LandscapingLanding() {
           email: email,
           phone: phone,
           job: job,
-          information: information
+          information: information,
+          images: base64strings
         })
     })  
 
@@ -127,13 +136,14 @@ export default function LandscapingLanding() {
               </div>
 
               <div>
-                <form className="space-y-6">
+                <form className="space-y-4" onSubmit={getFreeQuote}>
                   <div className="grid grid-cols-2 gap-4">
                     <Input placeholder="First name" className="rounded-full" value={first} onChange={(e) => setFirst(e.target.value)} />
                     <Input placeholder="Last name" className="rounded-full" value={last} onChange={(e) => setLast(e.target.value)} />
                   </div>
                   <Input type="email" placeholder="Email address" className="rounded-full" value={email} onChange={(e) => setEmail(e.target.value)} />
                   <Input type="tel" placeholder="Phone number" className="rounded-full" value={phone} onChange={(e) => setPhone(e.target.value)} />
+                  <Input type="address" placeholder="Address" className="rounded-full" value={address} onChange={(e) => setAddress(e.target.value)} />
                   <select value={job} onChange={(e) => setJob(e.target.value)} className="flex h-10 w-full rounded-full border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50">
                     <option value="">Select a service</option>
                     <option value="design">Garden Design</option>
@@ -146,8 +156,16 @@ export default function LandscapingLanding() {
                     value={information}
                     onChange={(e) => setInformation(e.target.value)}
                   />
-                  <Button onClick={getFreeQuote} type="submit" className="w-full bg-[#4f9132] hover:bg-[#458129] text-white rounded-full">
-                    Get Your Free Quote
+                  <label className="block text-sm font-medium text-gray-700">Upload pictures of needed work (optional)</label>
+                  <input
+                    type="file"
+                    accept="image/*"
+                    multiple
+                    onChange={(e) => setImages(Array.from(e.target.files ?? []))}
+                    className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-green-50 file:text-green-700 hover:file:bg-green-100"
+                  />
+                  <Button type="submit" className="w-full bg-[#4f9132] hover:bg-[#458129] text-white rounded-full">
+                    { sentSuccess ? <div><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="lucide lucide-check-check-icon lucide-check-check"><path d="M18 6 7 17l-5-5"/><path d="m22 10-7.5 7.5L13 16"/></svg></div> : "Get Your Free Quote" }
                   </Button>
                   <p className="text-xs text-center text-gray-500">
                     By submitting this form, you agree to our terms and privacy policy.

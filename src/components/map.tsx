@@ -2,11 +2,13 @@
 import mapboxgl from 'mapbox-gl';
 import { useEffect, useRef, useState } from 'react';
 import { getLocalStorage, setLocalStorage } from '@/utils/localStorage';
+import { markers } from '@/types/markers';
 
 type marker = {
     lngLat: [number, number],
     job: string,
-    status:string
+    status:string,
+    image: string //imageurl
 }
 
 export default function MapBox() {
@@ -21,22 +23,38 @@ export default function MapBox() {
 
     const map = new mapboxgl.Map({
       container: mapContainerRef.current!,
-      center: [-73.58781, 45.50884], // Montreal: [lng, lat]
-      zoom: 11,
+      center: [-73.62, 45.47], // Montreal: [lng, lat]
+      zoom: 12,
     },);
 
     mapRef.current = map;
 
-    const parsedMarkers = getLocalStorage("marker");
-    if (parsedMarkers.length == 0) {
-        //get from db
-    } else {
-        parsedMarkers.forEach((e: marker) => {
+    async function effectUse() {
+      const parsedMarkers = getLocalStorage("marker");
+      if (parsedMarkers.length == 0) {
+          //if no localStorage, get from DB
+          const response = await fetch("getMarkers", {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json"
+            }
+          })
+          const body = await response.json();
+          body.body.forEach((e: markers) => {
             new mapboxgl.Marker()
             .setLngLat(e.lngLat)
             .addTo(map);
-        })
+          })
+      } else {
+          parsedMarkers.forEach((e: marker) => {
+              new mapboxgl.Marker()
+              .setLngLat(e.lngLat)
+              .addTo(map);
+          })
+      }
     }
+
+    effectUse
 
     return () => map.remove(); // cleanup on unmount
   }, []);
