@@ -1,10 +1,14 @@
 'use client'
 
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 import { Phone } from "lucide-react"
 import { Button } from "@/components/ui/button"
+import { MobileSidebar } from "./ui/mobileSidebar"
 
 export function Navigation() {
+
+  const [mobile, setMobile] = useState(true);
+
   useEffect(() => {
     const handleSmoothScroll = (e: Event) => {
       e.preventDefault();
@@ -43,9 +47,25 @@ export function Navigation() {
     };
   }, []);
 
+  useEffect(() => {
+    if (window.innerWidth > 1025) {
+      setMobile(false);
+    }
+  }, [])
+
   return (
     <header className="sticky top-0 z-40 border-b bg-white">
-      <div className="container flex h-16 items-center justify-between py-4">
+      <div className={`${mobile ? "flex flex-row p-2 justify-between" : "hidden"}`}>
+        <MobileSidebar></MobileSidebar>
+        <img
+            src="/images/Junglebanner.png"
+            alt="Jungle Logo"
+            width={125}
+            height={20}
+            className="object-contain"
+          />
+      </div>
+      <div className={`${mobile ? "hidden" : "container flex h-16 items-center justify-between py-4"}`}>
         <div className="flex items-center">
           <img
             src="/images/bannerlong.png"

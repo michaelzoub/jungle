@@ -1,17 +1,51 @@
+"use client"
 import Link from "next/link"
 import Image from "next/image"
 import { Check, ChevronRight, Leaf, Mail, MapPin, Phone, Star, Lock, Clock, Shield, Plus } from "lucide-react"
 import { DM_Sans } from "next/font/google"
+import { useState } from "react"
 
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Card, CardContent } from "@/components/ui/card"
 import { Navigation } from "@/components/Navigation"
+import MapBox from "@/components/map"
 
 const dmSans = DM_Sans({ subsets: ["latin"] })
 
 export default function LandscapingLanding() {
+
+  const [first, setFirst] = useState("");
+  const [last, setLast] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
+  const [job, setJob] = useState("");
+  const [information, setInformation] = useState("");
+
+  const [sentSuccess, setSentSuccess] = useState(false);
+
+  async function getFreeQuote() {
+    const response = await fetch("/api/storeNewClient", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          first: first,
+          last: last,
+          email: email,
+          phone: phone,
+          job: job,
+          information: information
+        })
+    })  
+
+    const body = await response.json();
+    console.log(body);
+    setSentSuccess(true);
+  }
+
   return (
     <div className="flex min-h-screen flex-col scroll-smooth">
       <Navigation />
@@ -95,12 +129,12 @@ export default function LandscapingLanding() {
               <div>
                 <form className="space-y-6">
                   <div className="grid grid-cols-2 gap-4">
-                    <Input placeholder="First name" className="rounded-full" />
-                    <Input placeholder="Last name" className="rounded-full" />
+                    <Input placeholder="First name" className="rounded-full" value={first} onChange={(e) => setFirst(e.target.value)} />
+                    <Input placeholder="Last name" className="rounded-full" value={last} onChange={(e) => setLast(e.target.value)} />
                   </div>
-                  <Input type="email" placeholder="Email address" className="rounded-full" />
-                  <Input type="tel" placeholder="Phone number" className="rounded-full" />
-                  <select className="flex h-10 w-full rounded-full border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50">
+                  <Input type="email" placeholder="Email address" className="rounded-full" value={email} onChange={(e) => setEmail(e.target.value)} />
+                  <Input type="tel" placeholder="Phone number" className="rounded-full" value={phone} onChange={(e) => setPhone(e.target.value)} />
+                  <select value={job} onChange={(e) => setJob(e.target.value)} className="flex h-10 w-full rounded-full border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50">
                     <option value="">Select a service</option>
                     <option value="design">Garden Design</option>
                     <option value="maintenance">Garden Maintenance</option>
@@ -109,8 +143,10 @@ export default function LandscapingLanding() {
                   <Textarea 
                     placeholder="Tell us about your project (optional)" 
                     className="min-h-[100px] rounded-2xl resize-none"
+                    value={information}
+                    onChange={(e) => setInformation(e.target.value)}
                   />
-                  <Button type="submit" className="w-full bg-[#4f9132] hover:bg-[#458129] text-white rounded-full">
+                  <Button onClick={getFreeQuote} type="submit" className="w-full bg-[#4f9132] hover:bg-[#458129] text-white rounded-full">
                     Get Your Free Quote
                   </Button>
                   <p className="text-xs text-center text-gray-500">
@@ -120,6 +156,10 @@ export default function LandscapingLanding() {
               </div>
             </div>
           </div>
+          <section>
+            {/* Map section */}
+            <MapBox></MapBox>
+          </section>
         </section>
 
         {/* Services Section */}
@@ -169,7 +209,7 @@ export default function LandscapingLanding() {
                 </div>
               ))}
             </div>
-            <div className="mt-12 flex items-center justify-center">
+            <div className="mt-12 flex items-center justify-center text-sm md:text-md">
               <div className="bg-[#4f9132]/5 rounded-full py-3 px-6 flex items-center gap-3">
                 <span className="font-medium">Additional services:</span>
                 <div className="flex items-center gap-4 text-gray-600">
@@ -232,7 +272,7 @@ export default function LandscapingLanding() {
                   name: "Sarah Johnson",
                   location: "Local Resident",
                   quote:
-                    "GreenScape transformed our backyard into a beautiful oasis. The team was professional, on time, and the results exceeded our expectations.",
+                    "Jungle transformed our backyard into a beautiful oasis. The team was professional, on time, and the results exceeded our expectations.",
                 },
                 {
                   name: "Michael Thompson",
@@ -244,7 +284,7 @@ export default function LandscapingLanding() {
                   name: "Jennifer Davis",
                   location: "Property Manager",
                   quote:
-                    "As a property manager, I've worked with many landscapers. GreenScape stands out for their reliability, quality work, and excellent communication.",
+                    "As a property manager, I've worked with many landscapers. Jungle stands out for their reliability, quality work, and excellent communication.",
                 },
               ].map((testimonial, index) => (
                 <Card key={index} className="p-6">
@@ -368,7 +408,7 @@ export default function LandscapingLanding() {
           </div>
           <div className="border-t border-gray-900 mt-8 pt-8 flex flex-col md:flex-row justify-between items-center">
             <p className="text-gray-400 text-sm">
-              &copy; {new Date().getFullYear()} GreenScape Landscaping. All rights reserved.
+              &copy; {new Date().getFullYear()} Jungle Landscaping. All rights reserved.
             </p>
             <div className="flex gap-4 mt-4 md:mt-0">
               <Link href="#" className="text-gray-400 hover:text-[#4f9132] transition-colors">
