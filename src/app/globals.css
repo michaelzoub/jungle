@@ -155,3 +155,25 @@
     @apply mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl;
   }
 }
+
+.element {
+  overflow: scroll; /* or overflow: auto */
+  scrollbar-width: none; /* for Firefox */
+}
+
+
+@keyframes glow {
+  0% {
+    box-shadow: 0 0 5px 2px rgba(255, 255, 255, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 15px 4px rgba(0, 185, 31, 0.4);
+  }
+  100% {
+    box-shadow: 0 0 5px 2px rgba(255, 255, 255, 0.4);
+  }
+}
+
+.custom-marker {
+  animation: glow 1.5s ease-in-out infinite;
+}

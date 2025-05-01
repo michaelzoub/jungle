@@ -31,6 +31,15 @@ export default function LandscapingLanding() {
 
   async function getFreeQuote(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
+    setSentSuccess(true);
+    setFirst("");
+    setLast("");
+    setAddress("");
+    setEmail("");
+    setImages([]);
+    setInformation("");
+    setJob("");
+    setPhone("");
 
     const base64strings = convertFilesToBase64(images);
 
@@ -44,6 +53,7 @@ export default function LandscapingLanding() {
           last: last,
           email: email,
           phone: phone,
+          address: address,
           job: job,
           information: information,
           images: base64strings
@@ -52,11 +62,11 @@ export default function LandscapingLanding() {
 
     const body = await response.json();
     console.log(body);
-    setSentSuccess(true);
   }
 
   return (
-    <div className="flex min-h-screen flex-col scroll-smooth">
+    <div className="flex min-h-screen flex-col scroll-smooth element" >
+      <Link href='https://api.mapbox.com/mapbox-gl-js/v2.0.0/mapbox-gl.css' rel='stylesheet' />
       <Navigation />
       <main className="flex-1">
         {/* Hero Section */}
@@ -130,7 +140,7 @@ export default function LandscapingLanding() {
                   <Phone className="h-5 w-5 text-[#4f9132]" />
                   <div>
                     <div className="text-sm text-gray-600">Prefer to talk?</div>
-                    <div className="font-medium">Call us at (555) 123-4567</div>
+                    <div className="font-medium">Call us at (555) 555-5555</div>
                   </div>
                 </div>
               </div>

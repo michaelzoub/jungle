@@ -1,0 +1,1 @@
+export const statuses = ["Submitted ✅", "Quoted 💵",  "Scheduled 📅", "Completed 🎉"]
