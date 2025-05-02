@@ -60,11 +60,11 @@ export default function MapBox() {
 
             const markerElement = document.createElement('div');
             markerElement.className = 'custom-marker';
-            markerElement.style.backgroundColor = '#4f9132';
-            markerElement.style.width = '24px';
-            markerElement.style.height = '24px';
+            markerElement.style.backgroundColor = '#ffffff';
+            markerElement.style.width = '20px';
+            markerElement.style.height = '20px';
             markerElement.style.borderRadius = '50%';
-            markerElement.style.border = '2px solid white';
+            markerElement.style.border = '2px solid lime';
             markerElement.style.boxShadow = '0 0 10px rgba(0,0,0,0.3)';
 
             markerElement.addEventListener('click', () => {

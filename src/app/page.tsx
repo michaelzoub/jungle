@@ -309,7 +309,7 @@ export default function LandscapingLanding() {
                       loading="eager"
                     />
                   </div>
-                  <div className="absolute bottom-4 right-4 bg-white shadow-lg rounded-lg p-3 z-50 w-32 gap-1">
+                  <div className="absolute bottom-4 right-4 bg-white shadow-lg rounded-lg p-3 z-50 w-32 gap-1 z-[0]">
                     <h3 className="text-xs text-zinc-600">Hover to see the result of our work!</h3>
                   </div>
                   <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-6" onMouseEnter={() => setImageHover(item.id)} onMouseLeave={() => setImageHover(null)} onClick={() => setImageHover(item.id)}>
