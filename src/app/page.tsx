@@ -269,8 +269,8 @@ export default function LandscapingLanding() {
                 </div>
               ))}
             </div>
-            <div className="mt-12 flex items-center justify-center text-sm md:text-md">
-              <div className="bg-[#4f9132]/5 rounded-full py-3 px-6 flex items-center gap-3">
+            <div className="mt-12 flex items-center justify-center text-xs md:text-lg">
+              <div className="bg-[#4f9132]/5 rounded-full py-3 px-4 md:px-6 flex items-center gap-1 md:gap-3">
                 <span className="font-medium">Additional services:</span>
                 <div className="flex items-center gap-4 text-gray-600">
                   <span>Fall, spring and summer clean ups</span>
