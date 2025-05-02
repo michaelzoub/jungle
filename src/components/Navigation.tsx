@@ -10,6 +10,12 @@ export function Navigation() {
   const [mobile, setMobile] = useState(true);
 
   useEffect(() => {
+    if (window.innerWidth > 1025) {
+      setMobile(false);
+    }
+  }, [])
+
+  useEffect(() => {
     const handleSmoothScroll = (e: Event) => {
       e.preventDefault();
       const target = e.currentTarget as HTMLAnchorElement;
@@ -46,12 +52,6 @@ export function Navigation() {
       });
     };
   }, []);
-
-  useEffect(() => {
-    if (window.innerWidth > 1025) {
-      setMobile(false);
-    }
-  }, [])
 
   return (
     <header className="sticky top-0 z-40 border-b bg-white">

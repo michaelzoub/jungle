@@ -306,6 +306,7 @@ export default function LandscapingLanding() {
                       fill
                       className="object-cover transition-transform group-hover:scale-105 "
                       priority={true}
+                      loading="eager"
                     />
                   </div>
                   <div className="absolute bottom-4 right-4 bg-white shadow-lg rounded-lg p-3 z-50 w-32 gap-1">
@@ -321,6 +322,8 @@ export default function LandscapingLanding() {
                     width={1}
                     height={1}
                     style={{ display: 'none' }}
+                    loading="eager"
+                    priority={true}
                   />
                   </div>
               ))}
@@ -352,12 +355,12 @@ export default function LandscapingLanding() {
                   ))}
                 </ul>
               </div>
-              <div className="relative h-[400px] rounded-lg overflow-hidden">
+              <div className="flex items-center justify-center relative h-[400px] rounded-lg overflow-hidden">
                 <Image
-                  src="/placeholder.svg?height=400&width=600&text=Our Team"
+                  src="/images/LOGO-2.png"
                   alt="Our team"
-                  fill
-                  className="object-cover"
+                  width={400}
+                  height={100}
                 />
               </div>
             </div>

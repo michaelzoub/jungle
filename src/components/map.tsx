@@ -111,7 +111,7 @@ export default function MapBox() {
         style={{height: '100%', backgroundSize: "100%" }}
       />
       {selectedMarkerInfo && (
-        <div className="absolute top-4 right-4 bg-white shadow-lg rounded-lg p-4 z-50 w-64 gap-1">
+        <div className="absolute top-4 right-4 bg-white shadow-lg rounded-lg p-4 z-50 w-64 gap-1 z-[0]">
           <h3 className="font-semibold text-lg mb-2">{selectedMarkerInfo.jobType}</h3>
           {selectedMarkerInfo.status && (
             <p className="text-sm text-gray-600">Status: {selectedMarkerInfo.status}</p>
