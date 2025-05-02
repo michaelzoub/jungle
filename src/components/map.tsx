@@ -13,7 +13,6 @@ export default function MapBox() {
   const mapRef = useRef<mapboxgl.Map | null>(null);
 
   const markersRef = useRef<mapboxgl.Marker[]>([])
-  const [markers, setMarkers] = useState<mapboxgl.Marker[]>([])
 
   const [selectedMarkerInfo, setSelectedMarkerInfo] = useState<{ jobType: string, status?: string, review: string } | null>(null);
 

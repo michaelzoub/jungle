@@ -157,7 +157,7 @@
 }
 
 .element {
-  overflow: scroll; /* or overflow: auto */
+  
   scrollbar-width: none; /* for Firefox */
 }
 

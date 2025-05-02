@@ -16,6 +16,35 @@ import { convertFilesToBase64 } from "@/utils/convertToBase64"
 
 const dmSans = DM_Sans({ subsets: ["latin"] })
 
+const imagesArray = [
+  {
+    id: 1,
+    before: "/images/before1.jpg",
+    after: "/images/after1.jpg"
+  },
+  {
+    id: 2,
+    before: "/images/before2.jpg",
+    after: "/images/after2.jpg"
+  },
+  {
+    id: 3,
+    before: "/images/before3.jpg",
+    after: "/images/after3.jpg"
+  },
+  {
+    id: 4,
+    before: "/images/before4.jpg",
+    after: "/images/after4.jpg"
+  },
+  {
+    id: 5,
+    before: "/images/before5.jpg",
+    after: "/images/after5.jpg"
+  }
+];
+
+
 export default function LandscapingLanding() {
 
   const [first, setFirst] = useState("");
@@ -26,6 +55,8 @@ export default function LandscapingLanding() {
   const [job, setJob] = useState("");
   const [information, setInformation] = useState("");
   const [images, setImages] = useState<File[]>([]);
+
+  const [imageHover, setImageHover] = useState<number | null>(null);
 
   const [sentSuccess, setSentSuccess] = useState(false);
 
@@ -63,6 +94,7 @@ export default function LandscapingLanding() {
     const body = await response.json();
     console.log(body);
   }
+  
 
   return (
     <div className="flex min-h-screen flex-col scroll-smooth element" >
@@ -140,7 +172,7 @@ export default function LandscapingLanding() {
                   <Phone className="h-5 w-5 text-[#4f9132]" />
                   <div>
                     <div className="text-sm text-gray-600">Prefer to talk?</div>
-                    <div className="font-medium">Call us at (555) 555-5555</div>
+                    <div className="font-medium">Call us at 514-945-6241</div>
                   </div>
                 </div>
               </div>
@@ -263,68 +295,34 @@ export default function LandscapingLanding() {
                 Browse through our portfolio of completed projects and see the transformation for yourself.
               </p>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {[1, 2, 3, 4, 5, 6].map((item) => (
-                <div key={item} className="relative group overflow-hidden rounded-lg">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
+              {imagesArray.map((item) => (
+                <>
+                <div key={item.after} className="relative group overflow-hidden rounded-lg">
                   <div className="aspect-square relative">
                     <Image
-                      src={`/placeholder.svg?height=400&width=400&text=Project ${item}`}
+                      src={`${imageHover == item.id ? item.after : item.before}`}
                       alt={`Landscaping project ${item}`}
                       fill
-                      className="object-cover transition-transform group-hover:scale-105"
+                      className="object-cover transition-transform group-hover:scale-105 "
+                      priority={true}
                     />
                   </div>
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-6">
-                    <Button variant="outline" className="text-white border-white hover:bg-white/20">
-                      View Project
-                    </Button>
+                  <div className="absolute bottom-4 right-4 bg-white shadow-lg rounded-lg p-3 z-50 w-32 gap-1">
+                    <h3 className="text-xs text-zinc-600">Hover to see the result of our work!</h3>
+                  </div>
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-6" onMouseEnter={() => setImageHover(item.id)} onMouseLeave={() => setImageHover(null)} onClick={() => setImageHover(item.id)}>
+
                   </div>
                 </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* Testimonials Section */}
-        <section id="testimonials" className="py-16 md:py-24">
-          <div className="container">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl font-bold tracking-tight sm:text-4xl md:text-5xl">What Our Clients Say</h2>
-              <p className="mt-4 text-lg text-muted-foreground max-w-2xl mx-auto">
-                Don't just take our word for it. Here's what our satisfied customers have to say.
-              </p>
-            </div>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              {[
-                {
-                  name: "Sarah Johnson",
-                  location: "Local Resident",
-                  quote:
-                    "Jungle transformed our backyard into a beautiful oasis. The team was professional, on time, and the results exceeded our expectations.",
-                },
-                {
-                  name: "Michael Thompson",
-                  location: "Homeowner",
-                  quote:
-                    "We've been using their maintenance services for 3 years now. Our garden has never looked better, and their attention to detail is impressive.",
-                },
-                {
-                  name: "Jennifer Davis",
-                  location: "Property Manager",
-                  quote:
-                    "As a property manager, I've worked with many landscapers. Jungle stands out for their reliability, quality work, and excellent communication.",
-                },
-              ].map((testimonial, index) => (
-                <Card key={index} className="p-6">
-                  <div className="flex text-yellow-400 mb-4">
-                    {[...Array(5)].map((_, i) => (
-                      <Star key={i} className="h-4 w-4 fill-current" />
-                    ))}
-                  </div>
-                  <p className="italic mb-4">"{testimonial.quote}"</p>
-                  <div className="font-medium">{testimonial.name}</div>
-                  <div className="text-sm text-muted-foreground">{testimonial.location}</div>
-                </Card>
+                    <Image
+                    src={item.after}
+                    alt=""
+                    width={1}
+                    height={1}
+                    style={{ display: 'none' }}
+                  />
+                  </>
               ))}
             </div>
           </div>
@@ -337,8 +335,7 @@ export default function LandscapingLanding() {
               <div>
                 <h2 className={`${dmSans.className} text-3xl font-bold tracking-tight sm:text-4xl`}>About Us</h2>
                 <p className="mt-4 text-lg text-gray-600">
-                  With over 15 years of experience, we've been the trusted landscaping partner for homeowners
-                  and businesses in the local area.
+                  At Jungle Yard Maintenance, we specialize in creating and maintaining beautiful, eco-friendly outdoor spaces. From design to regular upkeep, we’re here to provide personalized service every step of the way. We take pride in our work and look forward to helping you bring your yard to life. Contact us today to get started!
                 </p>
                 <ul className="mt-6 space-y-3">
                   {[

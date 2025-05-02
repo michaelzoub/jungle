@@ -55,7 +55,7 @@ export function Navigation() {
 
   return (
     <header className="sticky top-0 z-40 border-b bg-white">
-      <div className={`${mobile ? "flex flex-row p-2 justify-between" : "hidden"}`}>
+      <div className={`${mobile ? "sticky flex flex-row p-2 justify-between" : "hidden"}`}>
         <MobileSidebar></MobileSidebar>
         <img
             src="/images/Junglebanner.png"
