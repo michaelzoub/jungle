@@ -297,8 +297,8 @@ export default function LandscapingLanding() {
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
               {imagesArray.map((item) => (
-                <>
-                <div key={item.after} className="relative group overflow-hidden rounded-lg">
+                <div key={item.after}>
+                <div className="relative group overflow-hidden rounded-lg">
                   <div className="aspect-square relative">
                     <Image
                       src={`${imageHover == item.id ? item.after : item.before}`}
@@ -322,7 +322,7 @@ export default function LandscapingLanding() {
                     height={1}
                     style={{ display: 'none' }}
                   />
-                  </>
+                  </div>
               ))}
             </div>
           </div>
