@@ -4,6 +4,7 @@ import { nodeMailer } from "@/utils/sendToEmail";
 import { addressToLongLat } from "@/utils/addressToLngLat";
 import { infoToString } from "@/utils/infoToString";
 import { statuses } from "@/app/data/statuses";
+import { createPage } from "@/utils/notion";
 
 export async function POST(req: NextRequest) {
     try {
@@ -27,6 +28,7 @@ export async function POST(req: NextRequest) {
         //send email: (nodemailer)
         const stringText = infoToString(body);
         await nodeMailer(body.email, `Quote for ${body.first} at ${body.address}`, stringText);
+        await createPage(body);
         return NextResponse.json({ status: 200, message: "Success" })
     } catch (error) {
         console.log(error);

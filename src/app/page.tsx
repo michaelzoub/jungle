@@ -17,31 +17,33 @@ import { convertFilesToBase64 } from "@/utils/convertToBase64"
 
 const dmSans = DM_Sans({ subsets: ["latin"] })
 
+const cloudFareBucket = `https://pub-59a6ccbae6794ea6be0f116149d286eb.r2.dev`
+
 const imagesArray = [
   {
     id: 1,
-    before: "/images/before1.jpg",
-    after: "/images/after1.jpg"
+    before: `${cloudFareBucket}/before1.jpg`,
+    after: `${cloudFareBucket}/after1.jpg`
   },
   {
     id: 2,
-    before: "/images/before2.jpg",
-    after: "/images/after2.jpg"
+    before: `${cloudFareBucket}/before2.jpg`,
+    after: `${cloudFareBucket}/after2.jpg`
   },
   {
     id: 3,
-    before: "/images/before3.jpg",
-    after: "/images/after3.jpg"
+    before: `${cloudFareBucket}/before3.jpg`,
+    after: `${cloudFareBucket}/after3.jpg`
   },
   {
     id: 4,
-    before: "/images/before4.jpg",
-    after: "/images/after4.jpg"
+    before: `${cloudFareBucket}/before4.jpg`,
+    after: `${cloudFareBucket}/after4.jpg`
   },
   {
     id: 5,
-    before: "/images/before5.jpg",
-    after: "/images/after5.jpg"
+    before: `${cloudFareBucket}/before5.jpg`,
+    after: `${cloudFareBucket}/after5.jpg`
   }
 ];
 
@@ -78,7 +80,8 @@ export default function LandscapingLanding() {
     const response = await fetch("/api/storeNewClient", {
         method: "POST",
         headers: {
-          "Content-Type": "application/json"
+          "Content-Type": "application/json",
+          "Cache-Control": "max-age=3600"
         },
         body: JSON.stringify({
           first: first,

@@ -4,6 +4,7 @@ export type userJob = {
     email: string,
     phone: string,
     address: string,
+    job: string,
     information: string,
     images: File[]
 }
