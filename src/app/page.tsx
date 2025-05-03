@@ -238,17 +238,17 @@ export default function LandscapingLanding() {
                 {
                   title: "Garden beds & design",
                   description: "Professional garden bed maintenance and seasonal clean-ups to keep your outdoor space pristine.",
-                  image: "/images/services/bedservice.jpg",
+                  image: `${cloudFareBucket}/bedservice.jpg`,
                 },
                 {
                   title: "Lawn care",
                   description: "Complete lawn maintenance services to keep your grass healthy and looking its best.",
-                  image: "/images/services/lawncareservice.jpeg",
+                  image: `${cloudFareBucket}/lawncareservice.jpeg`,
                 },
                 {
                   title: "Flower planting",
                   description: "Beautiful flower planting and maintenance to add color and life to your garden.",
-                  image: "/images/services/flowerservice.jpg",
+                  image: `${cloudFareBucket}/flowerservice.jpg`,
                 },
               ].map((service, index) => (
                 <div key={index} className="group relative overflow-hidden rounded-[32px]">
