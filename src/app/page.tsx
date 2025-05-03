@@ -11,6 +11,7 @@ import { Textarea } from "@/components/ui/textarea"
 import { Card, CardContent } from "@/components/ui/card"
 import { Navigation } from "@/components/Navigation"
 import MapBox from "@/components/map"
+import MapLegend from "@/components/maplegend"
 
 import { convertFilesToBase64 } from "@/utils/convertToBase64"
 
@@ -216,8 +217,9 @@ export default function LandscapingLanding() {
               </div>
             </div>
           </div>
-          <section>
+          <section className="container">
             {/* Map section */}
+            <MapLegend></MapLegend>
             <MapBox></MapBox>
           </section>
         </section>

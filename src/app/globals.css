@@ -174,6 +174,22 @@
   }
 }
 
+@keyframes glowYellow {
+  0% {
+    box-shadow: 0 0 5px 2px rgba(255, 255, 255, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 15px 4px rgba(251, 255, 0, 0.4);
+  }
+  100% {
+    box-shadow: 0 0 5px 2px rgba(255, 255, 255, 0.4);
+  }
+}
+
 .custom-marker {
   animation: glow 1.5s ease-in-out infinite;
+}
+
+.custom-marker2 {
+  animation: glowYellowlow 1.5s ease-in-out infinite;
 }

@@ -59,12 +59,12 @@ export default function MapBox() {
             console.log(e.lngLat);
 
             const markerElement = document.createElement('div');
-            markerElement.className = 'custom-marker';
-            markerElement.style.backgroundColor = '#ffffff';
+            markerElement.className = e.status.includes("completed") ? 'custom-marker' : 'custom-marker2';
+            markerElement.style.backgroundColor = e.status.includes("completed") ? '#ffffff' : '#facc15';
             markerElement.style.width = '20px';
             markerElement.style.height = '20px';
             markerElement.style.borderRadius = '50%';
-            markerElement.style.border = '2px solid lime';
+            markerElement.style.border = e.status.includes("completed") ? '2px solid lime' : '2px solid yellow';
             markerElement.style.boxShadow = '0 0 10px rgba(0,0,0,0.3)';
 
             markerElement.addEventListener('click', () => {
@@ -104,7 +104,7 @@ export default function MapBox() {
   }, []);
 
   return (
-    <main className="relative w-[80%] mx-auto mt-10 h-[450px]">
+    <main className="relative mx-auto mt-10 h-[450px]">
       <div
         ref={mapContainerRef!}
         className="rounded-lg overflow-hidden w-full h-full shadow-md relative"
