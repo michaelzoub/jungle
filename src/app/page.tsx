@@ -17,7 +17,7 @@ import { convertFilesToBase64 } from "@/utils/convertToBase64"
 
 const dmSans = DM_Sans({ subsets: ["latin"] })
 
-const cloudFareBucket = `https://pub-59a6ccbae6794ea6be0f116149d286eb.r2.dev`
+const cloudFareBucket = `junglandscape.com`
 
 const imagesArray = [
   {
