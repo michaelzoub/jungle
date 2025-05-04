@@ -25,11 +25,13 @@ export default function MapBox() {
 
     mapRef.current = new mapboxgl.Map({
       container: mapContainerRef.current!,
-      //style: 'mapbox://styles/mapbox/streets-v12',
-      center: [-73.62, 45.47], //Montreal: [lng, lat]
+      center: [-73.62, 45.47],
       zoom: 12,
-  
-    },);
+      maxBounds: [
+        [-73.75, 45.40], 
+        [-73.55, 45.60] 
+      ]
+    });
 
     mapRef.current.scrollZoom.disable();
     mapRef.current.boxZoom.disable();
@@ -100,7 +102,7 @@ export default function MapBox() {
               .addTo(mapCurrent);
           })
       }
-      
+
     }
 
     effectUse();

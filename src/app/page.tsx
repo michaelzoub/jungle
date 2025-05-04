@@ -460,14 +460,6 @@ export default function LandscapingLanding() {
             <p className="text-gray-400 text-sm">
               &copy; {new Date().getFullYear()} Jungle Landscaping. All rights reserved.
             </p>
-            <div className="flex gap-4 mt-4 md:mt-0">
-              <Link href="#" className="text-gray-400 hover:text-[#4f9132] transition-colors">
-                Privacy Policy
-              </Link>
-              <Link href="#" className="text-gray-400 hover:text-[#4f9132] transition-colors">
-                Terms of Service
-              </Link>
-            </div>
           </div>
         </div>
       </footer>
