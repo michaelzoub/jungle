@@ -82,17 +82,14 @@ export function Navigation() {
           <a href="#quote-form" className="text-sm font-medium hover:text-[#4f9132] transition-colors">
             Quote
           </a>
-          <a href="#about" className="text-sm font-medium hover:text-[#4f9132] transition-colors">
-            About Us
-          </a>
-          <a href="#testimonials" className="text-sm font-medium hover:text-[#4f9132] transition-colors">
-            Testimonials
+          <a href="#services" className="text-sm font-medium hover:text-[#4f9132] transition-colors">
+            Services
           </a>
           <a href="#portfolio" className="text-sm font-medium hover:text-[#4f9132] transition-colors">
             Our Work
           </a>
-          <a href="#services" className="text-sm font-medium hover:text-[#4f9132] transition-colors">
-            Services
+          <a href="#about" className="text-sm font-medium hover:text-[#4f9132] transition-colors">
+            About Us
           </a>
         </nav>
         <div className="flex items-center">

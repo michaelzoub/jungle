@@ -56,15 +56,18 @@ export default function MapBox() {
           const body = await response.json();
           console.log(body);
           body.body.forEach((e: markers) => {
+            if (!e.status.toLowerCase().includes("completed")) {
+              return;
+            }
             console.log(e.lngLat);
 
             const markerElement = document.createElement('div');
-            markerElement.className = e.status.includes("completed") ? 'custom-marker' : 'custom-marker2';
-            markerElement.style.backgroundColor = e.status.includes("completed") ? '#ffffff' : '#facc15';
+            markerElement.className = "custom-marker";
+            markerElement.style.backgroundColor = '#ffffff';
             markerElement.style.width = '20px';
             markerElement.style.height = '20px';
             markerElement.style.borderRadius = '50%';
-            markerElement.style.border = e.status.includes("completed") ? '2px solid lime' : '2px solid yellow';
+            markerElement.style.border = '2px solid lime';
             markerElement.style.boxShadow = '0 0 10px rgba(0,0,0,0.3)';
 
             markerElement.addEventListener('click', () => {
@@ -97,6 +100,7 @@ export default function MapBox() {
               .addTo(mapCurrent);
           })
       }
+      
     }
 
     effectUse();
@@ -104,7 +108,7 @@ export default function MapBox() {
   }, []);
 
   return (
-    <main className="relative mx-auto mt-10 h-[450px]">
+    <main className="max-w-6xl relative mx-auto mt-10 h-[450px]">
       <div
         ref={mapContainerRef!}
         className="rounded-lg overflow-hidden w-full h-full shadow-md relative"

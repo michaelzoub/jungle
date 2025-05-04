@@ -3,7 +3,7 @@ import Link from "next/link"
 import Image from "next/image"
 import { Check, ChevronRight, Leaf, Mail, MapPin, Phone, Star, Lock, Clock, Shield, Plus } from "lucide-react"
 import { DM_Sans } from "next/font/google"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -44,6 +44,11 @@ const imagesArray = [
     id: 5,
     before: `${cloudFareBucket}/before5.jpg`,
     after: `${cloudFareBucket}/after5.jpg`
+  },
+  {
+    id: 6,
+    before: `${cloudFareBucket}/before6.jpg`,
+    after: `${cloudFareBucket}/after6.jpg`
   }
 ];
 
@@ -62,6 +67,14 @@ export default function LandscapingLanding() {
   const [imageHover, setImageHover] = useState<number | null>(null);
 
   const [sentSuccess, setSentSuccess] = useState(false);
+
+    const [mobile, setMobile] = useState(true);
+  
+    useEffect(() => {
+      if (window.innerWidth > 1025) {
+        setMobile(false);
+      }
+    }, [])
 
   async function getFreeQuote(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -187,14 +200,15 @@ export default function LandscapingLanding() {
                     <Input placeholder="First name" className="rounded-full" value={first} onChange={(e) => setFirst(e.target.value)} />
                     <Input placeholder="Last name" className="rounded-full" value={last} onChange={(e) => setLast(e.target.value)} />
                   </div>
-                  <Input type="email" placeholder="Email address" className="rounded-full" value={email} onChange={(e) => setEmail(e.target.value)} />
+                  <Input type="email" placeholder="Email address (optional)" className="rounded-full" value={email} onChange={(e) => setEmail(e.target.value)} />
                   <Input type="tel" placeholder="Phone number" className="rounded-full" value={phone} onChange={(e) => setPhone(e.target.value)} />
                   <Input type="address" placeholder="Address" className="rounded-full" value={address} onChange={(e) => setAddress(e.target.value)} />
                   <select value={job} onChange={(e) => setJob(e.target.value)} className="flex h-10 w-full rounded-full border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50">
                     <option value="">Select a service</option>
-                    <option value="design">Garden Design</option>
-                    <option value="maintenance">Garden Maintenance</option>
-                    <option value="planting">Flower Planting</option>
+                    <option value="Design">Garden Design</option>
+                    <option value="Maintenance">Garden Maintenance</option>
+                    <option value="Planting">Flower Planting</option>
+                    <option value="Other">Other</option>
                   </select>
                   <Textarea 
                     placeholder="Tell us about your project (optional)" 
@@ -220,10 +234,15 @@ export default function LandscapingLanding() {
               </div>
             </div>
           </div>
-          <section className="container">
-            {/* Map section */}
-            <MapLegend></MapLegend>
-            <MapBox></MapBox>
+          <section className="container mt-36">
+            <div className="grid md:grid-cols-2 gap-12 items-start max-w-6xl mx-auto">
+              <div>
+                <h1 className="text-3xl sm:text-4xl font-bold tracking-tight w-[350px] __className_05e5f9">Discover our service area and past work.</h1>
+                <p className="mt-6 text-gray-600">We've transformed landscapes across Montreal with our expert services. Explore our completed projects and see if we serve your neighborhood.</p>
+              </div>
+              <MapLegend />
+            </div>
+            <MapBox />
           </section>
         </section>
 
@@ -304,33 +323,35 @@ export default function LandscapingLanding() {
               {imagesArray.map((item) => (
                 <div key={item.after}>
                 <div className="relative group overflow-hidden rounded-lg">
-                  <div className="aspect-square relative">
-                    <Image
-                      src={`${imageHover == item.id ? item.after : item.before}`}
-                      alt={`Landscaping project ${item}`}
-                      fill
-                      className="object-cover transition-transform group-hover:scale-105 "
-                      priority={true}
-                      loading="eager"
-                    />
-                  </div>
+                <div className="aspect-square relative group">
+                  {/* Before Image */}
+                  <Image
+                    src={item.before}
+                    alt={`Before image of ${item.id}`}
+                    fill
+                    className={`object-cover transition-opacity duration-300 ${imageHover === item.id ? 'opacity-0' : 'opacity-100'}`}
+                    priority
+                    loading="eager"
+                  />
+
+                  {/* After Image */}
+                  <Image
+                    src={item.after}
+                    alt={`After image of ${item.id}`}
+                    fill
+                    className={`object-cover transition-opacity duration-300 absolute top-0 left-0 ${imageHover === item.id ? 'opacity-100' : 'opacity-0'}`}
+                    priority
+                    loading="eager"
+                  />
+                </div>
                   <div className="absolute bottom-4 right-4 bg-white shadow-lg rounded-lg p-3 z-50 w-32 gap-1 z-[0]">
-                    <h3 className="text-xs text-zinc-600">Hover to see the result of our work!</h3>
+                    <h3 className="text-xs text-zinc-600">{mobile ? "Click to see the result of our work!" : "Hover to see the result of our work!"}</h3>
                   </div>
                   <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-6" onMouseEnter={() => setImageHover(item.id)} onMouseLeave={() => setImageHover(null)} onClick={() => setImageHover(item.id)}>
 
                   </div>
                 </div>
-                    <Image
-                    src={item.after}
-                    alt=""
-                    width={1}
-                    height={1}
-                    style={{ display: 'none' }}
-                    loading="eager"
-                    priority={true}
-                  />
-                  </div>
+                </div>
               ))}
             </div>
           </div>
@@ -347,7 +368,6 @@ export default function LandscapingLanding() {
                 </p>
                 <ul className="mt-6 space-y-3">
                   {[
-                    "Licensed and insured professionals",
                     "Eco-friendly practices and materials",
                     "Customized solutions for every property",
                     "Transparent pricing with no hidden fees",
@@ -395,9 +415,7 @@ export default function LandscapingLanding() {
                 {[
                   "Landscape Design",
                   "Garden Maintenance",
-                  "Hardscaping",
-                  "Irrigation Systems",
-                  "Outdoor Lighting"
+                  "Flower Planting"
                 ].map((item, index) => (
                   <li key={index}>
                     <Link href="#" className="text-gray-400 hover:text-[#4f9132] transition-colors">
@@ -413,7 +431,6 @@ export default function LandscapingLanding() {
                 {[
                   "About Us",
                   "Our Team",
-                  "Testimonials",
                   "Portfolio",
                   "Careers"
                 ].map((item, index) => (
