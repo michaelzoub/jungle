@@ -22,8 +22,8 @@ const cloudFareBucket = `https://r2-worker.micacao15.workers.dev/image`
 const imagesArray = [
   {
     id: 1,
-    before: `${cloudFareBucket}/before1.jpg`,
-    after: `${cloudFareBucket}/after1.jpg`
+    before: `${cloudFareBucket}/before6.jpg`,
+    after: `${cloudFareBucket}/after6.jpg`
   },
   {
     id: 2,
@@ -47,8 +47,8 @@ const imagesArray = [
   },
   {
     id: 6,
-    before: `${cloudFareBucket}/before6.jpg`,
-    after: `${cloudFareBucket}/after6.jpg`
+    before: `${cloudFareBucket}/before1.jpg`,
+    after: `${cloudFareBucket}/after1.jpg`
   }
 ];
 
