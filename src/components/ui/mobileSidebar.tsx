@@ -58,9 +58,6 @@ export function MobileSidebar() {
               <a href="#about" className="text-sm font-medium hover:text-[#4f9132] transition-colors">
                 About Us
               </a>
-              <a href="#testimonials" className="text-sm font-medium hover:text-[#4f9132] transition-colors">
-                Testimonials
-              </a>
               <a href="#portfolio" className="text-sm font-medium hover:text-[#4f9132] transition-colors">
                 Our Work
               </a>
