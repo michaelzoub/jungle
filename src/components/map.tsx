@@ -25,12 +25,10 @@ export default function MapBox() {
 
     mapRef.current = new mapboxgl.Map({
       container: mapContainerRef.current!,
-      center: [-73.62, 45.47],
-      zoom: 12,
-      maxBounds: [
-        [-73.75, 45.40], 
-        [-73.55, 45.60] 
-      ]
+      center: [-73.62, 45.473],
+      zoom: 13,
+      pitch: 25,
+      bearing: -32,
     });
 
     mapRef.current.scrollZoom.disable();
@@ -38,6 +36,9 @@ export default function MapBox() {
     //mapRef.current.dragZoom.disable();
     mapRef.current.doubleClickZoom.disable();
     mapRef.current.touchZoomRotate.disable();
+    mapRef.current.dragPan.disable();
+    mapRef.current.dragRotate.disable();
+    mapRef.current.keyboard.disable();
 
     async function effectUse() {
       const mapCurrent = mapRef.current;
