@@ -8,7 +8,8 @@ type Language = 'en' | 'fr';
 interface LanguageContextType {
   language: Language;
   setLanguage: (lang: Language) => void;
-  t: (key: string, options?: { returnObjects?: boolean; [key: string]: any }) => string | string[] | Record<string, any>;
+  t: (key: string, options?: { returnObjects?: boolean; [key: string]: any }) => string;
+  tArray: (key: string) => string[];
 }
 
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
@@ -28,7 +29,7 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
     localStorage.setItem('language', lang);
   };
 
-  const t = (key: string, options?: { returnObjects?: boolean; [key: string]: any }) => {
+  const getValue = (key: string) => {
     const keys = key.split('.');
     let value: any = translations[language];
     
@@ -39,11 +40,12 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
         return key;
       }
     }
-    
-    if (options?.returnObjects) {
-      return value;
-    }
+    return value;
+  };
 
+  const t = (key: string, options?: { [key: string]: any }) => {
+    const value = getValue(key);
+    
     if (typeof value === 'string') {
       // Replace any placeholders in the string with values from options
       return value.replace(/\{(\w+)\}/g, (match, key) => {
@@ -51,11 +53,27 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
       });
     }
 
+    if (Array.isArray(value)) {
+      return value.join(' ');
+    }
+
+    if (typeof value === 'object') {
+      return JSON.stringify(value);
+    }
+
     return key;
   };
 
+  const tArray = (key: string): string[] => {
+    const value = getValue(key);
+    if (Array.isArray(value)) {
+      return value;
+    }
+    return [];
+  };
+
   return (
-    <LanguageContext.Provider value={{ language, setLanguage: handleSetLanguage, t }}>
+    <LanguageContext.Provider value={{ language, setLanguage: handleSetLanguage, t, tArray }}>
       {children}
     </LanguageContext.Provider>
   );

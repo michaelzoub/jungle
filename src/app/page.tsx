@@ -54,7 +54,7 @@ const imagesArray = [
 ];
 
 export default function LandscapingLanding() {
-  const { t } = useLanguage();
+  const { t, tArray } = useLanguage();
   const [first, setFirst] = useState("");
   const [last, setLast] = useState("");
   const [email, setEmail] = useState("");
@@ -364,7 +364,7 @@ export default function LandscapingLanding() {
                   {t('about.description')}
                 </p>
                 <ul className="mt-6 space-y-3">
-                  {t('about.features', { returnObjects: true }).map((item: string, index: number) => (
+                  {tArray('about.features').map((item: string, index: number) => (
                     <li key={index} className="flex items-start">
                       <Check className="h-5 w-5 text-[#4f9132] mr-2 mt-0.5" />
                       <span>{item}</span>
@@ -404,7 +404,7 @@ export default function LandscapingLanding() {
             <div>
               <h3 className="font-bold mb-4">{t('footer.services.title')}</h3>
               <ul className="space-y-2">
-                {t('footer.services.items', { returnObjects: true }).map((item: string, index: number) => (
+                {tArray('footer.services.items').map((item: string, index: number) => (
                   <li key={index}>
                     <Link href="#" className="text-gray-400 hover:text-[#4f9132] transition-colors">
                       {item}
@@ -416,7 +416,7 @@ export default function LandscapingLanding() {
             <div>
               <h3 className="font-bold mb-4">{t('footer.company.title')}</h3>
               <ul className="space-y-2">
-                {t('footer.company.items', { returnObjects: true }).map((item: string, index: number) => (
+                {tArray('footer.company.items').map((item: string, index: number) => (
                   <li key={index}>
                     <Link href="#" className="text-gray-400 hover:text-[#4f9132] transition-colors">
                       {item}
