@@ -142,7 +142,14 @@ export default function LandscapingLanding() {
                   Transform your outdoor space into the space you've always wanted.
                 </p>
                 <div className="mt-10 flex items-center gap-6">
-                  <Button size="lg" className="bg-[#4f9132] hover:bg-[#458129] text-white px-8 rounded-full">
+                  <Button
+                    size="lg"
+                    onClick={() => {
+                      const el = document.getElementById('quote-form');
+                      if (el) el.scrollIntoView({ behavior: 'smooth' });
+                    }}
+                    className="bg-[#4f9132] hover:bg-[#458129] text-white px-8 rounded-full"
+                  >
                     Get in touch
                   </Button>
                   <Link 
@@ -240,7 +247,6 @@ export default function LandscapingLanding() {
                 <h1 className="text-3xl sm:text-4xl font-bold tracking-tight w-[350px] __className_05e5f9">Discover our service area and past work.</h1>
                 <p className="mt-6 text-gray-600">We've transformed landscapes across Montreal with our expert services. Explore our completed projects and see if we serve your neighborhood.</p>
               </div>
-              <MapLegend />
             </div>
             <MapBox />
           </section>

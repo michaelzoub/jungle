@@ -3,6 +3,7 @@ import mapboxgl from 'mapbox-gl';
 import { useEffect, useRef, useState } from 'react';
 import { getLocalStorage, setLocalStorage } from '@/utils/localStorage';
 import { markers } from '@/types/markers';
+import MapLegend from './maplegend';
 
 
 export default function MapBox() {
@@ -137,6 +138,7 @@ export default function MapBox() {
           </button>
         </div>
       )}
+      <MapLegend></MapLegend>
     </main>
   );
 }
