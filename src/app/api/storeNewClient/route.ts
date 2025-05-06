@@ -14,6 +14,7 @@ export async function POST(req: NextRequest) {
         const collection = db.collection("userJob");
         //inserts new object 
         await collection.insertOne(body);
+
         //insert into marker collection
         console.log(body);
         const lngLat = await addressToLongLat(body.address);
