@@ -1,9 +1,12 @@
 "use client"
 import { Menu, X } from "lucide-react"
 import { useState } from "react"
+import { useLanguage } from "@/context/LanguageContext"
+import { LanguageSwitcher } from "../LanguageSwitcher"
 
 export function MobileSidebar() {
   const [isOpen, setIsOpen] = useState(false)
+  const { t } = useLanguage();
 
   const toggleSidebar = () => {
     setIsOpen(!isOpen)
@@ -36,7 +39,7 @@ export function MobileSidebar() {
         <div className="flex flex-col h-full">
           {/* Header */}
           <div className="flex items-center justify-between p-4 border-b">
-            <div className="font-medium">Menu</div>
+            <div className="font-medium">{t('navigation.home')}</div>
             <button
               onClick={toggleSidebar}
               className="p-2 rounded-md hover:bg-gray-100 transition-colors"
@@ -50,27 +53,37 @@ export function MobileSidebar() {
           <nav className="flex-1 overflow-auto p-4">
             <div className="flex flex-col space-y-6">
               <a href="#" className="text-sm font-medium hover:text-[#4f9132] transition-colors">
-                Home
+                {t('navigation.home')}
               </a>
               <a href="#quote-form" className="text-sm font-medium hover:text-[#4f9132] transition-colors">
-                Quote
+                {t('navigation.quote')}
               </a>
               <a href="#about" className="text-sm font-medium hover:text-[#4f9132] transition-colors">
-                About Us
+                {t('navigation.aboutUs')}
               </a>
               <a href="#portfolio" className="text-sm font-medium hover:text-[#4f9132] transition-colors">
-                Our Work
+                {t('navigation.ourWork')}
               </a>
               <a href="#services" className="text-sm font-medium hover:text-[#4f9132] transition-colors">
-                Services
+                {t('navigation.services')}
               </a>
+              <div className="pt-4">
+                <LanguageSwitcher />
+              </div>
             </div>
           </nav>
 
           {/* Footer */}
           <div className="p-4 border-t">
-            <button className="w-full py-2 px-4 bg-[#4f9132] hover:bg-[#3e7127] text-white font-medium rounded-md transition-colors">
-              Get a Quote
+            <button 
+              onClick={() => {
+                const el = document.getElementById('quote-form');
+                if (el) el.scrollIntoView({ behavior: 'smooth' });
+                setIsOpen(false);
+              }}
+              className="w-full py-2 px-4 bg-[#4f9132] hover:bg-[#3e7127] text-white font-medium rounded-md transition-colors"
+            >
+              {t('navigation.getQuote')}
             </button>
           </div>
         </div>
