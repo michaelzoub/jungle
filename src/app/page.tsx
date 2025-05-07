@@ -66,6 +66,7 @@ export default function LandscapingLanding() {
   const [imageHover, setImageHover] = useState<number | null>(null);
   const [sentSuccess, setSentSuccess] = useState(false);
   const [mobile, setMobile] = useState(true);
+  const [showPopup, setShowPopup] = useState(false);
 
   useEffect(() => {
     if (window.innerWidth > 1025) {
@@ -75,6 +76,13 @@ export default function LandscapingLanding() {
 
   async function getFreeQuote(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
+
+    if (!first || !last || !phone || !address || !job) {
+      alert("Please fill in all required fields");
+      return;
+    }
+
+    setShowPopup(true);
     setSentSuccess(true);
     setFirst("");
     setLast("");
@@ -85,7 +93,10 @@ export default function LandscapingLanding() {
     setJob("");
     setPhone("");
 
-    const base64strings = convertFilesToBase64(images);
+    console.log('Number of images before conversion:', images.length);
+    const base64strings = await convertFilesToBase64(images);
+    console.log('Number of images after conversion:', base64strings.length);
+    console.log('First converted image preview:', base64strings[0]?.substring(0, 50) + '...');
 
     const response = await fetch("/api/storeNewClient", {
       method: "POST",
@@ -246,6 +257,29 @@ export default function LandscapingLanding() {
             <MapBox />
           </section>
         </section>
+
+        {/* Success Popup */}
+        {showPopup && (
+          <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+            <div className="bg-white rounded-lg p-8 max-w-md w-full mx-4">
+              <div className="text-center">
+                <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <Check className="h-8 w-8 text-green-600" />
+                </div>
+                <h3 className="text-xl font-semibold mb-2">Thank You!</h3>
+                <p className="text-gray-600 mb-6">
+                  Your quote request has been submitted successfully. We'll get back to you shortly.
+                </p>
+                <Button
+                  onClick={() => setShowPopup(false)}
+                  className="bg-[#4f9132] hover:bg-[#458129] text-white rounded-full px-6"
+                >
+                  Close
+                </Button>
+              </div>
+            </div>
+          </div>
+        )}
 
         {/* Services Section */}
         <section id="services" className="py-16 md:py-24 bg-[#4f9132]/5">

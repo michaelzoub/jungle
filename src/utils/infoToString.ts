@@ -1,5 +1,5 @@
-import { userJob } from "@/types/userJob";
+import { Job } from "@/types/Job";
 
-export function infoToString(object: userJob) {
-    return `${object.first} ${object.last} \n \n Phone number: ${object.phone} \n \n Address: ${object.address} \n \n Additional information if any: ${object.information} \n \n Images: ${object.images}`
+export function infoToString(object: Job) {
+    return `${object.customer.first} ${object.customer.last} \n \n Phone number: ${object.customer.phone} \n \n Address: ${object.customer.address} \n \n Additional information if any: ${object.details.description} \n \n Images: ${object.details.images}`
 }

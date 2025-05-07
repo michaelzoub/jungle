@@ -5,18 +5,12 @@ import { getLocalStorage, setLocalStorage } from '@/utils/localStorage';
 import { markers } from '@/types/markers';
 import MapLegend from './maplegend';
 
-
 export default function MapBox() {
-
-    //const [markers, setMarkers] = useState<marker | null>(null);
-
   const mapContainerRef = useRef<HTMLDivElement | null>(null);
   const mapRef = useRef<mapboxgl.Map | null>(null);
-
   const markersRef = useRef<mapboxgl.Marker[]>([])
 
   const [selectedMarkerInfo, setSelectedMarkerInfo] = useState<{ jobType: string, status?: string, review: string } | null>(null);
-
 
   const LATITUDE_CORRECTION = 0.053;
   const LONGITUDE_CORRECTION = 0.002;
@@ -34,7 +28,6 @@ export default function MapBox() {
 
     mapRef.current.scrollZoom.disable();
     mapRef.current.boxZoom.disable();
-    //mapRef.current.dragZoom.disable();
     mapRef.current.doubleClickZoom.disable();
     mapRef.current.touchZoomRotate.disable();
     mapRef.current.dragPan.disable();
@@ -63,7 +56,7 @@ export default function MapBox() {
             if (!e.status.toLowerCase().includes("completed")) {
               return;
             }
-            console.log(e.lngLat);
+            console.log(e.location);
 
             const markerElement = document.createElement('div');
             markerElement.className = "custom-marker";
@@ -83,7 +76,7 @@ export default function MapBox() {
               console.log("clicked")
             });
 
-            const lngLat = new mapboxgl.LngLat(e.lngLat[0] + LONGITUDE_CORRECTION, e.lngLat[1] + LATITUDE_CORRECTION);
+            const lngLat = new mapboxgl.LngLat(e.location[0] + LONGITUDE_CORRECTION, e.location[1] + LATITUDE_CORRECTION);
 
             const marker = new mapboxgl.Marker({
               element: markerElement,
@@ -95,16 +88,15 @@ export default function MapBox() {
 
             markersRef.current.push(marker)
 
-            bounds.extend(e.lngLat)
+            bounds.extend(e.location)
           })
       } else {
           parsedMarkers.forEach((e: markers) => {
               new mapboxgl.Marker()
-              .setLngLat(e.lngLat)
+              .setLngLat(e.location)
               .addTo(mapCurrent);
           })
       }
-
     }
 
     effectUse();

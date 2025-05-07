@@ -1,10 +1,3 @@
-export type userJob = {
-    first: string,
-    last: string,
-    email: string,
-    phone: string,
-    address: string,
-    job: string,
-    information: string,
-    images: File[]
-}
+import { Job } from './Job';
+
+export type userJob = Job;
