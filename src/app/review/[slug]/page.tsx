@@ -1,4 +1,4 @@
-import ReviewForm from "./ReviewForm"
+import ReviewForm from "@/app/review/[slug]/ReviewForm"
 
 export default async function ReviewPage({
     params,
