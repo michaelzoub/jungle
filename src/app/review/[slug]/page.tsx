@@ -8,7 +8,7 @@ export default function ReviewPage({
     params,
   }: {
     params: { slug: string }
-  }) {
+  } & { searchParams: { [key: string]: string | string[] | undefined } }) {
     const [submit, setSubmit] = useState(false);
     const [review, setReview] = useState("");
 
