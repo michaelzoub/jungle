@@ -1,6 +1,6 @@
 import ReviewForm from "./ReviewForm"
 
-export default function ReviewPage({
+export default async function ReviewPage({
     params,
 }: {
     params: { slug: string }
