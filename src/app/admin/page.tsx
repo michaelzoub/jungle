@@ -13,7 +13,7 @@ export default function AdminPage() {
     const [password, setPassword] = useState("");
     const [access, setAccess] = useState(false);
     const [markers, setMarkers] = useState<markers[] | null>(null);
-    const [clicked, setClicked] = useState<string | undefined>("");
+    const [clicked, setClicked] = useState<{ _id: string, email: string } | null>(null);
 
     //get username and pw from mongo, if good then cache for very long time
     async function getLoginInfo(e: React.FormEvent<HTMLFormElement>) {
@@ -46,13 +46,13 @@ export default function AdminPage() {
             headers: {
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify({ _id: clicked })
+            body: JSON.stringify({ _id: clicked._id })
         });
 
         if (response.ok) {
-            setClicked("");
+            setClicked(null);
             if (markers) {
-                const filteredMarkers = markers.filter(e => e._id?.toString() !== clicked);
+                const filteredMarkers = markers.filter(e => e._id?.toString() !== clicked._id);
                 setMarkers(filteredMarkers);
             }
         }
@@ -108,9 +108,9 @@ export default function AdminPage() {
                         <div className="space-y-4">
                             {markers.map((marker, index) => (
                                 <div
-                                className={`w-full rounded-lg border border-zinc-200 shadow-sm transition-all duration-200 hover:shadow-md ${(clicked == marker._id?.toString()) ? "bg-green-50" : "bg-white"}`}
+                                className={`w-full rounded-lg border border-zinc-200 shadow-sm transition-all duration-200 hover:shadow-md ${(clicked?._id === marker._id?.toString()) ? "bg-green-50" : "bg-white"}`}
                                 key={index}
-                                onClick={() => setClicked((marker._id)?.toString())}
+                                onClick={() => setClicked({ _id: marker._id?.toString() || '', email: marker.customer?.email || '' })}
                               >
                                 {/* Card Header */}
                                 <div className="p-4 pb-2">

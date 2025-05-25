@@ -12,16 +12,21 @@ export default function MapBox() {
 
   const [selectedMarkerInfo, setSelectedMarkerInfo] = useState<{ jobType: string, status?: string, review: string } | null>(null);
 
+  const LONGITUDE_CORRECTION = -0.045;
   const LATITUDE_CORRECTION = 0.053;
-  const LONGITUDE_CORRECTION = 0.002;
 
   useEffect(() => {
     mapboxgl.accessToken = "pk.eyJ1IjoibWljaGFlbHpvdWJrb2ZmIiwiYSI6ImNtMnBobzl6NjBzbnYybXByb2xuM2kzMTQifQ.RSHQO2_-m5bd15lQNxvvBA";
 
+    let zoomAmount = 13;
+    if (window.innerWidth < 700) {
+      zoomAmount = 12;
+    }
+
     mapRef.current = new mapboxgl.Map({
       container: mapContainerRef.current!,
       center: [-73.62, 45.473],
-      zoom: 13,
+      zoom: zoomAmount,
       pitch: 25,
       bearing: -32,
     });
@@ -39,12 +44,9 @@ export default function MapBox() {
       if (!mapCurrent) {
         return;
       }
-      const parsedMarkers = getLocalStorage("marker");
-      console.log(parsedMarkers);
       const bounds = new mapboxgl.LngLatBounds();
-      if (parsedMarkers.length == 0) {
           //if no localStorage, get from DB
-          const response = await fetch("/api/getMarkers", {
+          const response = await fetch("/api/getJobs", {
             method: "GET",
             headers: {
               "Content-Type": "application/json"
@@ -90,13 +92,6 @@ export default function MapBox() {
 
             bounds.extend(e.location)
           })
-      } else {
-          parsedMarkers.forEach((e: markers) => {
-              new mapboxgl.Marker()
-              .setLngLat(e.location)
-              .addTo(mapCurrent);
-          })
-      }
     }
 
     effectUse();

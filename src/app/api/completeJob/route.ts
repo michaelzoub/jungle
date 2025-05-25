@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { connectToDatabase } from "@/utils/mongo";
 import { statuses } from "@/app/data/statuses";
 import { nodeMailer } from "@/utils/sendToEmail";
+import { reviewEmail } from "@/utils/sendReviewEmail";
 
 export async function POST(req: NextRequest) {
     try {
@@ -17,7 +18,7 @@ export async function POST(req: NextRequest) {
 
         //send email to user
         //we need a link where users can post reviews
-        await nodeMailer("jungleteam1500@gmail.com", "Job review", `How did you find the service? Please leave a rating by click on this link: https://junglandscape.com/review/${body._id}`)
+        await reviewEmail(body.email, "Job review", `How did you find the service? Please leave a rating by click on this link: https://junglandscape.com/review/${body._id}`)
 
         return NextResponse.json({ status: 200 });
     } catch(error) {

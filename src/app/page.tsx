@@ -54,6 +54,16 @@ const imagesArray = [
 ];
 
 export default function LandscapingLanding() {
+  async function tester() {
+    const response = await fetch("/api/test", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      }
+    })
+    console.log(response)
+  }
+
   const { t, tArray } = useLanguage();
   const [first, setFirst] = useState("");
   const [last, setLast] = useState("");
@@ -129,7 +139,7 @@ export default function LandscapingLanding() {
         <section className="relative">
           <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/60 z-10" />
           <div className="absolute inset-0 bg-gradient-to-r from-black/40 via-transparent to-black/40 z-10" />
-          <div className="relative h-[900px]">
+          <div className={`relative ${mobile ? "h-[600px] " : "h-[900px] "}`}>
             <Image
               src="/images/banner.jpg"
               alt="Beautiful landscaped garden"
@@ -379,7 +389,7 @@ export default function LandscapingLanding() {
                   <div className="absolute bottom-4 right-4 bg-white shadow-lg rounded-lg p-3 z-50 w-32 gap-1 z-[0]">
                     <h3 className="text-xs text-zinc-600">{mobile ? t('portfolio.clickText') : t('portfolio.hoverText')}</h3>
                   </div>
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-6" onMouseEnter={() => setImageHover(item.id)} onMouseLeave={() => setImageHover(null)} onClick={() => setImageHover(item.id)}>
+                  <div className="absolute inset-0 bg-gradient-to-t to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-6" onMouseEnter={() => setImageHover(item.id)} onMouseLeave={() => setImageHover(null)} onClick={() => setImageHover(item.id)}>
                   </div>
                 </div>
                 </div>

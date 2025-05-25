@@ -97,9 +97,7 @@ export const translations = {
         title: "Company",
         items: [
           "About Us",
-          "Our Team",
           "Portfolio",
-          "Careers"
         ]
       },
       contact: {
@@ -207,9 +205,7 @@ export const translations = {
         title: "Entreprise",
         items: [
           "À Propos",
-          "Notre Équipe",
           "Portfolio",
-          "Carrières"
         ]
       },
       contact: {
