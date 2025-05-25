@@ -13,13 +13,14 @@ export default function MapBox() {
   const [selectedMarkerInfo, setSelectedMarkerInfo] = useState<{ jobType: string, status?: string, review: string } | null>(null);
 
   const LONGITUDE_CORRECTION = -0.045;
-  const LATITUDE_CORRECTION = 0.053;
+  let LATITUDE_CORRECTION = 0.053;
 
   useEffect(() => {
     mapboxgl.accessToken = "pk.eyJ1IjoibWljaGFlbHpvdWJrb2ZmIiwiYSI6ImNtMnBobzl6NjBzbnYybXByb2xuM2kzMTQifQ.RSHQO2_-m5bd15lQNxvvBA";
 
     let zoomAmount = 13;
     if (window.innerWidth < 700) {
+      LATITUDE_CORRECTION = 0.023;
       zoomAmount = 12;
     }
 
