@@ -28,13 +28,13 @@ const imagesArray = [
   },
   {
     id: 2,
-    before: `${cloudFareBucket}/before2.jpg`,
-    after: `${cloudFareBucket}/after2.jpg`
+    before: `${cloudFareBucket}/before8.jpg`,
+    after: `${cloudFareBucket}/after8.jpg`
   },
   {
     id: 3,
-    before: `${cloudFareBucket}/before3.jpg`,
-    after: `${cloudFareBucket}/after3.jpg`
+    before: `${cloudFareBucket}/before7.jpg`,
+    after: `${cloudFareBucket}/after7.jpg`
   },
   {
     id: 4,
