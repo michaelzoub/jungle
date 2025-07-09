@@ -12,7 +12,7 @@ export default function MapBox() {
 
   const [selectedMarkerInfo, setSelectedMarkerInfo] = useState<{ jobType: string, status?: string, review: string } | null>(null);
 
-  const LONGITUDE_CORRECTION = -0.045;
+  let LONGITUDE_CORRECTION = -0.045;
   let LATITUDE_CORRECTION = 0.053;
 
   useEffect(() => {
@@ -20,7 +20,8 @@ export default function MapBox() {
 
     let zoomAmount = 13;
     if (window.innerWidth < 700) {
-      LATITUDE_CORRECTION = 0.023;
+      LATITUDE_CORRECTION = 0.094;
+      LONGITUDE_CORRECTION = -0.082;
       zoomAmount = 12;
     }
 
@@ -103,7 +104,7 @@ export default function MapBox() {
     <main className="max-w-6xl relative mx-auto mt-10 h-[450px]">
       <div
         ref={mapContainerRef!}
-        className="rounded-lg overflow-hidden w-full h-full shadow-md relative"
+        className="rounded-lg overflow-hidden w-full h-screen shadow-md relative"
         style={{height: '100%', backgroundSize: "100%" }}
       />
       {selectedMarkerInfo && (
