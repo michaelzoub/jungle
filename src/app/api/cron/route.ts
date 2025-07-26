@@ -1,4 +1,4 @@
-import { NextResponse } from 'next/server';
+/*import { NextResponse } from 'next/server';
 import { queryNotionDB } from '@/utils/queryNotionDB';
 import { checkIfStatusChanged } from '@/utils/queryNotionDB';
 import { connectToDatabase } from '@/utils/mongo';
@@ -18,4 +18,4 @@ export async function GET() {
         console.error(error);
     }
     return NextResponse.json({ ok: true });
-}
+}*/
