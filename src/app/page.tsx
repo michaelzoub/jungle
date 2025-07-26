@@ -23,13 +23,13 @@ const cloudFareBucket = `https://r2-worker.micacao15.workers.dev/image`
 const imagesArray = [
   {
     id: 1,
-    before: `${cloudFareBucket}/before10.jpg`,
-    after: `${cloudFareBucket}/after10.jpg`
+    before: "/images/BEFORE_FI.png",
+    after: "/images/AFTER_FI.png"
   },
   {
     id: 2,
-    before: `${cloudFareBucket}/before8.jpg`,
-    after: `${cloudFareBucket}/after8.jpg`
+    before: "/images/BEFORE_SE.jpg",
+    after: "/images/AFTER_SE.png"
   },
   {
     id: 3,
@@ -38,8 +38,8 @@ const imagesArray = [
   },
   {
     id: 4,
-    before: `${cloudFareBucket}/before6.jpg`,
-    after: `${cloudFareBucket}/after6.jpg`
+    before: `${cloudFareBucket}/before8.jpg`,
+    after: `${cloudFareBucket}/after8.jpg`
   },
   {
     id: 5,
@@ -64,7 +64,7 @@ export default function LandscapingLanding() {
     console.log(response)
   }
 
-  const { t, tArray } = useLanguage();
+  const { t, tArray, language } = useLanguage();
   const [first, setFirst] = useState("");
   const [last, setLast] = useState("");
   const [email, setEmail] = useState("");
@@ -147,33 +147,31 @@ export default function LandscapingLanding() {
               className="object-cover object-center"
             />
           </div>
-          <div className="container absolute inset-0 z-20 flex items-end pb-44">
+          <div className="container absolute inset-0 z-20 flex items-center px-4">
             <div className="flex items-center w-full">
               {/* Left Content */}
-              <div>
-                <h1 className={`${dmSans.className} text-6xl sm:text-7xl md:text-8xl font-bold tracking-tight text-white`}>
+              <div className="w-full">
+                <h1 className={`${dmSans.className} text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-light tracking-tight text-white leading-tight`}>
                   {t('hero.title')}
                 </h1>
-                <p className="mt-8 text-xl sm:text-2xl text-gray-300 max-w-xl">
+                <p className="mt-4 sm:mt-8 text-lg sm:text-xl md:text-2xl text-gray-300 max-w-xl">
                   {t('hero.subtitle')}
                 </p>
-                <div className="mt-10 flex items-center gap-6">
+                <div className="mt-6 sm:mt-10 flex flex-col sm:flex-row items-center gap-4 sm:gap-6">
                   <Button
-                    size="lg"
                     onClick={() => {
                       const el = document.getElementById('quote-form');
                       if (el) el.scrollIntoView({ behavior: 'smooth' });
                     }}
-                    className="bg-[#4f9132] hover:bg-[#458129] text-white px-8 rounded-full"
+                    className="bg-white/20 text-white px-6 sm:px-8 py-3 rounded-none border border-white hover:bg-white/30 transition-colors w-full sm:w-40 h-12"
                   >
-                    {t('hero.getInTouch')}
+                    Contact Us
                   </Button>
                   <Link
                     href="#portfolio"
-                    className="text-white/90 hover:text-white flex items-center gap-2 transition-colors"
+                    className="text-white border border-white px-6 sm:px-8 py-3 rounded-none hover:bg-white/10 transition-colors flex items-center justify-center w-full sm:w-44 h-12 text-sm"
                   >
                     {t('hero.viewWork')}
-                    <ChevronRight className="h-4 w-4" />
                   </Link>
                 </div>
               </div>
@@ -184,84 +182,80 @@ export default function LandscapingLanding() {
         {/* Quote Form Section */}
         <section id="quote-form" className="py-16 md:py-24 bg-white">
           <div className="container">
-            <div className="grid md:grid-cols-2 gap-12 items-start max-w-6xl mx-auto">
-              <div>
-                <h2 className={`${dmSans.className} text-3xl font-bold tracking-tight sm:text-4xl mb-6`}>
-                  {t('quoteForm.title')}
-                </h2>
-                <p className="text-gray-600 mb-8">
-                  {t('quoteForm.subtitle')}
+            <div className="max-w-2xl mx-auto text-center">
+              <h2 className={`${dmSans.className} text-3xl font-bold tracking-tight sm:text-4xl mb-6`}>
+                {t('quoteForm.title')}
+              </h2>
+              <p className="text-gray-600 mb-8">
+                {t('quoteForm.subtitle')}
+              </p>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 mb-8">
+                <div className="flex items-center gap-3">
+                  <div className="h-10 w-10 rounded-full bg-[#4f9132]/10 flex items-center justify-center">
+                    <Check className="h-5 w-5 text-[#4f9132]" />
+                  </div>
+                  <div className="text-sm">{t('quoteForm.freeQuotes')}</div>
+                </div>
+                <div className="flex items-center gap-3">
+                  <div className="h-10 w-10 rounded-full bg-[#4f9132]/10 flex items-center justify-center">
+                    <Clock className="h-5 w-5 text-[#4f9132]" />
+                  </div>
+                  <div className="text-sm">{t('quoteForm.responseTime')}</div>
+                </div>
+              </div>
+
+              <div className="flex items-center gap-4 p-4 bg-[#4f9132]/10 mb-8">
+                <Phone className="h-5 w-5 text-[#4f9132]" />
+                <div>
+                  <div className="text-sm text-gray-600">{t('quoteForm.preferToTalk')}</div>
+                  <div className="font-medium">{t('quoteForm.callUs')} 514-945-6241</div>
+                </div>
+              </div>
+
+              <form className="space-y-4" onSubmit={getFreeQuote}>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <Input placeholder={t('quoteForm.firstName')} className="rounded-none" value={first} onChange={(e) => setFirst(e.target.value)} />
+                  <Input placeholder={t('quoteForm.lastName')} className="rounded-none" value={last} onChange={(e) => setLast(e.target.value)} />
+                </div>
+                <Input type="email" placeholder={t('quoteForm.email')} className="rounded-none" value={email} onChange={(e) => setEmail(e.target.value)} />
+                <Input type="tel" placeholder={t('quoteForm.phone')} className="rounded-none" value={phone} onChange={(e) => setPhone(e.target.value)} />
+                <Input type="address" placeholder={t('quoteForm.address')} className="rounded-none" value={address} onChange={(e) => setAddress(e.target.value)} />
+                <select value={job} onChange={(e) => setJob(e.target.value)} className="flex h-10 w-full rounded-none border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50">
+                  <option value="">{t('quoteForm.selectService')}</option>
+                  <option value="Design">{t('quoteForm.services.design')}</option>
+                  <option value="Maintenance">{t('quoteForm.services.maintenance')}</option>
+                  <option value="Planting">{t('quoteForm.services.planting')}</option>
+                  <option value="Other">{t('quoteForm.services.other')}</option>
+                </select>
+                <Textarea
+                  placeholder={t('quoteForm.projectDetails')}
+                  className="min-h-[100px] rounded-none resize-none"
+                  value={information}
+                  onChange={(e) => setInformation(e.target.value)}
+                />
+                <label className="block text-sm font-medium text-gray-700">{t('quoteForm.uploadPictures')}</label>
+                <input
+                  type="file"
+                  accept="image/*"
+                  multiple
+                  onChange={(e) => setImages(Array.from(e.target.files ?? []))}
+                  className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-green-50 file:text-green-700 hover:file:bg-green-100"
+                />
+                <Button type="submit" className="w-full bg-[#4f9132] hover:bg-[#458129] text-white rounded-none">
+                  {sentSuccess ? <div><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="lucide lucide-check-check-icon lucide-check-check"><path d="M18 6 7 17l-5-5"/><path d="m22 10-7.5 7.5L13 16"/></svg></div> : t('quoteForm.submit')}
+                </Button>
+                <p className="text-sm text-gray-500 text-center">
+                  {t('quoteForm.terms')}
                 </p>
-
-                <div className="grid grid-cols-2 gap-6 mb-8">
-                  <div className="flex items-center gap-3">
-                    <div className="h-10 w-10 rounded-full bg-[#4f9132]/10 flex items-center justify-center">
-                      <Check className="h-5 w-5 text-[#4f9132]" />
-                    </div>
-                    <div className="text-sm">{t('quoteForm.freeQuotes')}</div>
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <div className="h-10 w-10 rounded-full bg-[#4f9132]/10 flex items-center justify-center">
-                      <Clock className="h-5 w-5 text-[#4f9132]" />
-                    </div>
-                    <div className="text-sm">{t('quoteForm.responseTime')}</div>
-                  </div>
-                </div>
-
-                <div className="flex items-center gap-4 p-4 bg-[#4f9132]/10 rounded-2xl">
-                  <Phone className="h-5 w-5 text-[#4f9132]" />
-                  <div>
-                    <div className="text-sm text-gray-600">{t('quoteForm.preferToTalk')}</div>
-                    <div className="font-medium">{t('quoteForm.callUs')} 514-945-6241</div>
-                  </div>
-                </div>
-              </div>
-
-              <div>
-                <form className="space-y-4" onSubmit={getFreeQuote}>
-                  <div className="grid grid-cols-2 gap-4">
-                    <Input placeholder={t('quoteForm.firstName')} className="rounded-full" value={first} onChange={(e) => setFirst(e.target.value)} />
-                    <Input placeholder={t('quoteForm.lastName')} className="rounded-full" value={last} onChange={(e) => setLast(e.target.value)} />
-                  </div>
-                  <Input type="email" placeholder={t('quoteForm.email')} className="rounded-full" value={email} onChange={(e) => setEmail(e.target.value)} />
-                  <Input type="tel" placeholder={t('quoteForm.phone')} className="rounded-full" value={phone} onChange={(e) => setPhone(e.target.value)} />
-                  <Input type="address" placeholder={t('quoteForm.address')} className="rounded-full" value={address} onChange={(e) => setAddress(e.target.value)} />
-                  <select value={job} onChange={(e) => setJob(e.target.value)} className="flex h-10 w-full rounded-full border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50">
-                    <option value="">{t('quoteForm.selectService')}</option>
-                    <option value="Design">{t('quoteForm.services.design')}</option>
-                    <option value="Maintenance">{t('quoteForm.services.maintenance')}</option>
-                    <option value="Planting">{t('quoteForm.services.planting')}</option>
-                    <option value="Other">{t('quoteForm.services.other')}</option>
-                  </select>
-                  <Textarea
-                    placeholder={t('quoteForm.projectDetails')}
-                    className="min-h-[100px] rounded-2xl resize-none"
-                    value={information}
-                    onChange={(e) => setInformation(e.target.value)}
-                  />
-                  <label className="block text-sm font-medium text-gray-700">{t('quoteForm.uploadPictures')}</label>
-                  <input
-                    type="file"
-                    accept="image/*"
-                    multiple
-                    onChange={(e) => setImages(Array.from(e.target.files ?? []))}
-                    className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-green-50 file:text-green-700 hover:file:bg-green-100"
-                  />
-                  <Button type="submit" className="w-full bg-[#4f9132] hover:bg-[#458129] text-white rounded-full">
-                    {sentSuccess ? <div><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="lucide lucide-check-check-icon lucide-check-check"><path d="M18 6 7 17l-5-5"/><path d="m22 10-7.5 7.5L13 16"/></svg></div> : t('quoteForm.submit')}
-                  </Button>
-                  <p className="text-sm text-gray-500 text-center">
-                    {t('quoteForm.terms')}
-                  </p>
-                </form>
-              </div>
+              </form>
             </div>
           </div>
-          <section className="container mt-36">
-            <div className="grid md:grid-cols-2 gap-12 items-start max-w-6xl mx-auto">
+          <section className="container mt-16 sm:mt-36">
+            <div className="grid md:grid-cols-2 gap-8 sm:gap-12 items-start max-w-6xl mx-auto">
               <div>
-                <h1 className="text-3xl sm:text-4xl font-bold tracking-tight w-[350px] __className_05e5f9">{t('map.title')}</h1>
-                <p className="mt-6 text-gray-600">{t('map.description')}</p>
+                <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight max-w-[350px]">{t('map.title')}</h1>
+                <p className="mt-4 sm:mt-6 text-gray-600">{t('map.description')}</p>
               </div>
             </div>
             <MapBox />
@@ -315,7 +309,7 @@ export default function LandscapingLanding() {
                   image: `${cloudFareBucket}/flowerservice.jpg`,
                 },
               ].map((service, index) => (
-                <div key={index} className="group relative overflow-hidden rounded-[32px]">
+                <div key={index} className="group relative overflow-hidden">
                   <div className="aspect-[4/5] relative">
                     <Image
                       src={service.image}
@@ -323,7 +317,7 @@ export default function LandscapingLanding() {
                       fill
                       className="object-cover transition-transform group-hover:scale-105"
                     />
-                    <div className="absolute bottom-0 left-0 right-0 p-6 bg-white rounded-[24px] m-4">
+                    <div className="absolute bottom-0 left-0 right-0 p-6 bg-white m-4">
                       <div className="flex items-start gap-4">
                         <div className="flex-1">
                           <h3 className="text-lg font-medium mb-2">{service.title}</h3>
@@ -361,7 +355,7 @@ export default function LandscapingLanding() {
                 {t('portfolio.subtitle')}
               </p>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
               {imagesArray.map((item) => (
                 <div key={item.after}>
                 <div className="relative group overflow-hidden rounded-lg">
@@ -386,10 +380,10 @@ export default function LandscapingLanding() {
                     loading="eager"
                   />
                 </div>
-                  <div className="absolute bottom-4 right-4 bg-white shadow-lg rounded-lg p-3 z-50 w-32 gap-1 z-[0]">
+                  <div className="absolute bottom-2 sm:bottom-4 right-2 sm:right-4 bg-white shadow-lg rounded-lg p-2 sm:p-3 z-50 w-24 sm:w-32 gap-1 z-[0]">
                     <h3 className="text-xs text-zinc-600">{mobile ? t('portfolio.clickText') : t('portfolio.hoverText')}</h3>
                   </div>
-                  <div className="absolute inset-0 bg-gradient-to-t to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-6" onMouseEnter={() => setImageHover(item.id)} onMouseLeave={() => setImageHover(null)} onClick={() => setImageHover(item.id)}>
+                  <div className="absolute inset-0 bg-gradient-to-t to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4 sm:p-6" onMouseEnter={() => setImageHover(item.id)} onMouseLeave={() => setImageHover(null)} onClick={() => setImageHover(item.id)}>
                   </div>
                 </div>
                 </div>
@@ -401,27 +395,28 @@ export default function LandscapingLanding() {
         {/* About Section */}
         <section id="about" className="py-16 md:py-24 bg-[#4f9132]/5">
           <div className="container">
-            <div className="grid md:grid-cols-2 gap-12 items-center">
+            <div className="grid md:grid-cols-2 gap-8 sm:gap-12 items-center">
               <div>
-                <h2 className={`${dmSans.className} text-3xl font-bold tracking-tight sm:text-4xl`}>{t('about.title')}</h2>
-                <p className="mt-4 text-lg text-gray-600">
+                <h2 className={`${dmSans.className} text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight`}>{t('about.title')}</h2>
+                <p className="mt-4 text-base sm:text-lg text-gray-600">
                   {t('about.description')}
                 </p>
                 <ul className="mt-6 space-y-3">
                   {tArray('about.features').map((item: string, index: number) => (
                     <li key={index} className="flex items-start">
-                      <Check className="h-5 w-5 text-[#4f9132] mr-2 mt-0.5" />
-                      <span>{item}</span>
+                      <Check className="h-5 w-5 text-[#4f9132] mr-2 mt-0.5 flex-shrink-0" />
+                      <span className="text-sm sm:text-base">{item}</span>
                     </li>
                   ))}
                 </ul>
               </div>
-              <div className="flex items-center justify-center relative h-[400px] rounded-lg overflow-hidden">
+              <div className="flex items-center justify-center relative h-[250px] sm:h-[300px] md:h-[400px] rounded-lg overflow-hidden">
                 <Image
-                  src="/images/LOGO-2.png"
+                  src={language === 'fr' ? "/images/LOGO-1.png" : "/images/LOGO-2.png"}
                   alt="Our team"
                   width={400}
                   height={100}
+                  className="object-contain"
                 />
               </div>
             </div>

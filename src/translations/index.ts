@@ -9,8 +9,8 @@ export const translations = {
       getQuote: "Get a Quote"
     },
     hero: {
-      title: "Bring your\ngarden to life",
-      subtitle: "Transform your outdoor space into the space you've always wanted.",
+      title: "Bringing Your\nOutdoor Vision to Life",
+      subtitle: "Custom landscaping services designed to match your space, your style, and your needs.",
       getInTouch: "Get in touch",
       viewWork: "View our work"
     },
@@ -117,10 +117,10 @@ export const translations = {
       getQuote: "Obtenir un Devis"
     },
     hero: {
-      title: "Donnez vie à\nvotre jardin",
-      subtitle: "Transformez votre espace extérieur en l'espace dont vous avez toujours rêvé.",
+      title: "Donner Vie à Votre\nVision Extérieure",
+      subtitle: "Services d'aménagement paysager personnalisés conçus pour s'adapter à votre espace, votre style et vos besoins.",
       getInTouch: "Contactez-nous",
-      viewWork: "Voir nos réalisations"
+      viewWork: "Nos réalisations"
     },
     quoteForm: {
       title: "Prêt à transformer\nvotre jardin ?",
