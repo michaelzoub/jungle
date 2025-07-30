@@ -8,14 +8,23 @@ import { LanguageSwitcher } from "./LanguageSwitcher"
 import { useLanguage } from "@/context/LanguageContext"
 
 export function Navigation() {
-  const { t } = useLanguage();
-  const [mobile, setMobile] = useState(true);
+  const { t, language } = useLanguage();
+  const [mobile, setMobile] = useState(false);
 
   useEffect(() => {
-    if (window.innerWidth > 1025) {
-      setMobile(false);
-    }
-  }, [])
+    const checkMobile = () => {
+      setMobile(window.innerWidth <= 1024);
+    };
+
+    // Check on mount
+    checkMobile();
+
+    // Add resize listener
+    window.addEventListener('resize', checkMobile);
+
+    // Cleanup
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   useEffect(() => {
     const handleSmoothScroll = (e: Event) => {
@@ -56,58 +65,68 @@ export function Navigation() {
   }, []);
 
   return (
-    <header className="sticky top-0 z-40 border-b bg-white">
-      <div className={`${mobile ? "sticky flex flex-row p-2 justify-between" : "hidden"}`}>
-        <MobileSidebar />
-        <img
-          src="/images/Junglebanner.png"
-          alt="Jungle Logo"
-          width={125}
-          height={20}
-          className="object-contain"
-        />
-      </div>
-      <div className={`${mobile ? "hidden" : "container flex h-16 items-center justify-between py-4"}`}>
-        <div className="flex items-center">
-          <img
-            src="/images/bannerlong.png"
-            alt="Jungle Logo"
-            width={280}
-            height={75}
-            className="object-contain"
-          />
+    <header className="sticky top-0 z-40 border-b bg-white shadow-sm">
+      {/* Mobile Navigation */}
+      {mobile && (
+        <div className="flex items-center justify-between p-3 lg:hidden">
+          <MobileSidebar />
+          <div className="flex-1 flex justify-center">
+            <img
+              src={language === 'fr' ? "/images/LOGO-1.png" : "/images/Junglebanner.png"}
+              alt="Jungle Logo"
+              width={120}
+              height={20}
+              className="object-contain"
+            />
+          </div>
+          <div className="w-10" /> {/* Spacer for centering */}
         </div>
-        <nav className="flex-1 flex justify-center gap-6">
-          <a href="#" className="text-sm font-medium hover:text-[#4f9132] transition-colors">
-            {t('navigation.home')}
-          </a>
-          <a href="#quote-form" className="text-sm font-medium hover:text-[#4f9132] transition-colors">
-            {t('navigation.quote')}
-          </a>
-          <a href="#services" className="text-sm font-medium hover:text-[#4f9132] transition-colors">
-            {t('navigation.services')}
-          </a>
-          <a href="#portfolio" className="text-sm font-medium hover:text-[#4f9132] transition-colors">
-            {t('navigation.ourWork')}
-          </a>
-          <a href="#about" className="text-sm font-medium hover:text-[#4f9132] transition-colors">
-            {t('navigation.aboutUs')}
-          </a>
-        </nav>
-        <div className="flex items-center gap-4">
-          <LanguageSwitcher />
-          <button
-            onClick={() => {
-              const el = document.getElementById('quote-form');
-              if (el) el.scrollIntoView({ behavior: 'smooth' });
-            }}
-            className="bg-[#4f9132] hover:bg-[#458129] text-white font-semibold rounded-full px-6 py-2 transition-colors focus:outline-none focus:ring-2 focus:ring-[#4f9132] focus:ring-offset-2"
-            aria-label={t('navigation.getQuote')}
-          >
-            {t('navigation.getQuote')}
-          </button>
+      )}
+
+      {/* Desktop Navigation */}
+      {!mobile && (
+        <div className="container px-4 flex h-16 items-center justify-between py-4">
+          <div className="flex items-center">
+            <img
+              src={language === 'fr' ? "/images/LOGO-1.png" : "/images/bannerlong.png"}
+              alt="Jungle Logo"
+              width={280}
+              height={75}
+              className="object-contain"
+            />
+          </div>
+          <nav className="flex-1 flex justify-center gap-6">
+            <a href="#" className="text-sm font-medium hover:text-[#4f9132] transition-colors">
+              {t('navigation.home')}
+            </a>
+            <a href="#quote-form" className="text-sm font-medium hover:text-[#4f9132] transition-colors">
+              {t('navigation.quote')}
+            </a>
+            <a href="#services" className="text-sm font-medium hover:text-[#4f9132] transition-colors">
+              {t('navigation.services')}
+            </a>
+            <a href="#portfolio" className="text-sm font-medium hover:text-[#4f9132] transition-colors">
+              {t('navigation.ourWork')}
+            </a>
+            <a href="#about" className="text-sm font-medium hover:text-[#4f9132] transition-colors">
+              {t('navigation.aboutUs')}
+            </a>
+          </nav>
+          <div className="flex items-center gap-4">
+            <LanguageSwitcher />
+            <button
+              onClick={() => {
+                const el = document.getElementById('quote-form');
+                if (el) el.scrollIntoView({ behavior: 'smooth' });
+              }}
+              className="bg-[#4f9132] hover:bg-[#458129] text-white font-medium px-6 py-2 rounded-none border-0 transition-colors focus:outline-none focus:ring-2 focus:ring-[#4f9132] focus:ring-offset-2"
+              aria-label={t('navigation.getQuote')}
+            >
+              {t('navigation.getQuote')}
+            </button>
+          </div>
         </div>
-      </div>
+      )}
     </header>
   );
 } 

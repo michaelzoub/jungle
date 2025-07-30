@@ -14,7 +14,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Jungle Yardworking",
+  title: "Jungle Landscaping",
   description: "Transform your outdoor space into the space you've always wanted.",
   icons: {
     icon: '/favicon.ico',

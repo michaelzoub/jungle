@@ -9,8 +9,8 @@ export const translations = {
       getQuote: "Get a Quote"
     },
     hero: {
-      title: "Bring your\ngarden to life",
-      subtitle: "Transform your outdoor space into the space you've always wanted.",
+      title: "Bringing Your\nOutdoor Vision to Life",
+      subtitle: "Custom landscaping services designed to match your space, your style, and your needs.",
       getInTouch: "Get in touch",
       viewWork: "View our work"
     },
@@ -42,17 +42,35 @@ export const translations = {
       title: "Professional Services",
       subtitle: "Meeting Your Needs",
       description: "At Jungle landscaping, we take pride in offering a wide range of services to transform your outdoor space.",
-      gardenBeds: {
-        title: "Garden beds & design",
-        description: "Professional garden bed maintenance and seasonal clean-ups to keep your outdoor space pristine."
+      gardenDesign: {
+        title: "Garden Design & Planting",
+        description: "Transform your outdoor space with custom designs and expert planting",
+        services: ["Garden Design", "Flower Planting", "Garden Beds", "Plant Selection"]
+      },
+      maintenance: {
+        title: "Maintenance & Cleanup",
+        description: "Keep your landscape healthy and beautiful year-round",
+        services: ["Spring Garden Opening", "Seasonal Cleanups", "Weeding", "Uprooting"]
+      },
+      mulching: {
+        title: "Mulching & Ground Cover",
+        description: "Professional ground cover and mulching services",
+        services: ["Mulching", "Sodding", "River Rock Installation", "Ground Cover"]
+      },
+      paverRestoration: {
+        title: "Paver Restoration",
+        description: "Restore and enhance your hardscape elements",
+        services: ["Paver Restoration", "Polymeric Sand", "Pressure Washing", "Stone Walkways"]
       },
       lawnCare: {
-        title: "Lawn care",
-        description: "Complete lawn maintenance services to keep your grass healthy and looking its best."
+        title: "Lawn Care",
+        description: "Keep your lawn healthy and beautiful year-round",
+        services: ["Weekly Mowing", "Fertilization", "Weed Control", "Aeration"]
       },
-      flowerPlanting: {
-        title: "Flower planting",
-        description: "Beautiful flower planting and maintenance to add color and life to your garden."
+      pressureWashing: {
+        title: "Pressure Washing",
+        description: "Professional pressure washing services for all surfaces",
+        services: ["Pressure Washing", "Surface Cleaning", "Deck Cleaning", "Driveway Cleaning"]
       },
       additionalServices: "Additional services:",
       fallCleanup: "Fall, spring and summer clean ups",
@@ -69,9 +87,56 @@ export const translations = {
     },
     portfolio: {
       title: "Our Work",
+      mainTitle: "Before & After Transformations",
       subtitle: "Browse through our portfolio of completed projects and see the transformation for yourself.",
+      before: "BEFORE",
+      after: "AFTER",
       hoverText: "Hover to see the result of our work!",
-      clickText: "Click to see the result of our work!"
+      clickText: "Click to see the result of our work!",
+      projects: {
+        project1: {
+          title: "Complete Garden Bed Transformation",
+          location: "NDG, Montreal",
+          duration: "2 weeks",
+          services: ["Garden Design", "Plant Installation", "Lawn Mowing", "Plant Selection", "Edging Installation"],
+          description: "Turned a messy, overgrown garden into a clean, organized space with fresh plants and proper edging. The lawn was also mowed and maintained for a complete transformation."
+        },
+        project2: {
+          title: "Complete Walkway Makeover",
+          location: "Lasalle, Montreal",
+          duration: "3 weeks",
+          services: ["Landscape Design", "Plant Selection", "Planting", "Mulching", "Pressure Washing", "Polymeric Sand"],
+          description: "Gave this walkway a complete refresh with new plants, fresh mulch, and a thorough cleaning. Added polymeric sand to keep everything in place and looking great."
+        },
+        project3: {
+          title: "Walkway Wash and Polymeric Sand Installation",
+          location: "NDG, Montreal",
+          duration: "4 weeks",
+          services: ["Pressure Washing", "Polymeric Sand"],
+          description: "Deep cleaned the walkway and filled the gaps with polymeric sand to prevent weeds and keep the stones stable. Now it looks brand new and stays that way."
+        },
+        project4: {
+          title: "Spring Weeding and Mulching",
+          location: "NDG, Montreal",
+          duration: "5 weeks",
+          services: ["Weeding", "Mulching"],
+          description: "Spring cleanup that removed all the winter debris and weeds, then added fresh mulch to keep the garden looking neat and prevent future weed growth."
+        },
+        project5: {
+          title: "Walkway Clean Up",
+          location: "NDG, Montreal",
+          duration: "3 weeks",
+          services: ["Weeding", "Trimming"],
+          description: "Cleaned up the walkway by removing weeds and trimming overgrown plants. Simple maintenance that made a big difference in the overall appearance."
+        },
+        project6: {
+          title: "Walkway Weeding and Mulching",
+          location: "NDG, Montreal",
+          duration: "6 weeks",
+          services: ["Weeding", "Mulching"],
+          description: "Removed weeds from the walkway and added fresh mulch to improve the curb appeal. The mulch helps suppress weeds and keeps the area looking tidy."
+        }
+      }
     },
     about: {
       title: "About Us",
@@ -117,10 +182,10 @@ export const translations = {
       getQuote: "Obtenir un Devis"
     },
     hero: {
-      title: "Donnez vie à\nvotre jardin",
-      subtitle: "Transformez votre espace extérieur en l'espace dont vous avez toujours rêvé.",
+      title: "Donner Vie à Votre\nVision Extérieure",
+      subtitle: "Services d'aménagement paysager personnalisés conçus pour s'adapter à votre espace, votre style et vos besoins.",
       getInTouch: "Contactez-nous",
-      viewWork: "Voir nos réalisations"
+      viewWork: "Nos réalisations"
     },
     quoteForm: {
       title: "Prêt à transformer\nvotre jardin ?",
@@ -149,18 +214,36 @@ export const translations = {
     services: {
       title: "Services Professionnels",
       subtitle: "Répondre à Vos Besoins",
-      description: "Chez Jungle landscaping, nous sommes fiers d'offrir une large gamme de services pour transformer votre espace extérieur.",
-      gardenBeds: {
-        title: "Plates-bandes & conception",
-        description: "Entretien professionnel des plates-bandes et nettoyages saisonniers pour maintenir votre espace extérieur impeccable."
+      description: "Chez Jungle Paysagagement, nous sommes fiers d'offrir une large gamme de services pour transformer votre espace extérieur.",
+      gardenDesign: {
+        title: "Conception & Plantation de Jardin",
+        description: "Transformez votre espace extérieur avec des conceptions personnalisées et une plantation experte",
+        services: ["Conception de Jardin", "Plantation de Fleurs", "Plates-bandes", "Sélection de Plantes"]
+      },
+      maintenance: {
+        title: "Entretien & Nettoyage",
+        description: "Gardez votre paysage sain et beau toute l'année",
+        services: ["Ouverture de Jardin Printemps", "Nettoyages Saisonniers", "Désherbage", "Arrachage"]
+      },
+      mulching: {
+        title: "Paillis & Couvre-sol",
+        description: "Services professionnels de paillis et couvre-sol",
+        services: ["Paillis", "Gazon", "Installation de Roches", "Couvre-sol"]
+      },
+      paverRestoration: {
+        title: "Restauration de Pavés",
+        description: "Restaurer et améliorer vos éléments de hardscape",
+        services: ["Restauration de Pavés", "Sable Polymérique", "Lavage sous Pression", "Allées de Pierre"]
       },
       lawnCare: {
-        title: "Entretien de pelouse",
-        description: "Services complets d'entretien de pelouse pour garder votre gazon sain et beau."
+        title: "Entretien de Pelouse",
+        description: "Gardez votre pelouse saine et belle toute l'année",
+        services: ["Tonte Hebdomadaire", "Fertilisation", "Contrôle des Mauvaises Herbes", "Aération"]
       },
-      flowerPlanting: {
-        title: "Plantation de fleurs",
-        description: "Plantation et entretien de fleurs pour ajouter de la couleur et de la vie à votre jardin."
+      pressureWashing: {
+        title: "Lavage sous Pression",
+        description: "Services professionnels de lavage sous pression pour toutes les surfaces",
+        services: ["Lavage sous Pression", "Nettoyage de Surfaces", "Nettoyage de Terrasses", "Nettoyage d'Allées"]
       },
       additionalServices: "Services supplémentaires :",
       fallCleanup: "Nettoyages d'automne, de printemps et d'été",
@@ -177,9 +260,56 @@ export const translations = {
     },
     portfolio: {
       title: "Nos Réalisations",
+      mainTitle: "Transformations Avant & Après",
       subtitle: "Parcourez notre portfolio de projets réalisés et voyez la transformation par vous-même.",
+      before: "AVANT",
+      after: "APRÈS",
       hoverText: "Survolez pour voir le résultat de nos travaux !",
-      clickText: "Cliquez pour voir le résultat de nos travaux !"
+      clickText: "Cliquez pour voir le résultat de nos travaux !",
+      projects: {
+        project1: {
+          title: "Transformation Complète de Plates-bandes",
+          location: "NDG, Montréal",
+          duration: "2 semaines",
+          services: ["Conception de Jardin", "Installation de Plantes", "Tonte de Pelouse", "Sélection de Plantes", "Installation de Bordures"],
+          description: "Transformé un jardin envahi et désordonné en un espace propre et organisé avec des plantes fraîches et des bordures appropriées. La pelouse a aussi été tondue et entretenue pour une transformation complète."
+        },
+        project2: {
+          title: "Refonte Complète d'Allée",
+          location: "Lasalle, Montréal",
+          duration: "3 semaines",
+          services: ["Conception Paysagère", "Sélection de Plantes", "Plantation", "Paillis", "Lavage sous Pression", "Sable Polymérique"],
+          description: "Donné un rafraîchissement complet à cette allée avec de nouvelles plantes, du paillis frais et un nettoyage approfondi. Ajouté du sable polymérique pour tout maintenir en place et garder un bel aspect."
+        },
+        project3: {
+          title: "Lavage d'Allée et Installation de Sable Polymérique",
+          location: "NDG, Montréal",
+          duration: "4 semaines",
+          services: ["Lavage sous Pression", "Sable Polymérique"],
+          description: "Nettoyage en profondeur de l'allée et remplissage des interstices avec du sable polymérique pour empêcher les mauvaises herbes et stabiliser les pierres. Maintenant elle a l'air neuve et le reste."
+        },
+        project4: {
+          title: "Désherbage et Paillis de Printemps",
+          location: "NDG, Montréal",
+          duration: "5 semaines",
+          services: ["Désherbage", "Paillis"],
+          description: "Nettoyage de printemps qui a enlevé tous les débris et mauvaises herbes de l'hiver, puis ajouté du paillis frais pour garder le jardin propre et empêcher la croissance future des mauvaises herbes."
+        },
+        project5: {
+          title: "Nettoyage d'Allée",
+          location: "NDG, Montréal",
+          duration: "3 semaines",
+          services: ["Désherbage", "Taille"],
+          description: "Nettoyé l'allée en enlevant les mauvaises herbes et en taillant les plantes envahissantes. Entretien simple qui a fait une grande différence dans l'apparence générale."
+        },
+        project6: {
+          title: "Désherbage et Paillis d'Allée",
+          location: "NDG, Montréal",
+          duration: "6 semaines",
+          services: ["Désherbage", "Paillis"],
+          description: "Enlevé les mauvaises herbes de l'allée et ajouté du paillis frais pour améliorer l'attrait de la bordure. Le paillis aide à supprimer les mauvaises herbes et garde la zone propre."
+        }
+      }
     },
     about: {
       title: "À Propos",
