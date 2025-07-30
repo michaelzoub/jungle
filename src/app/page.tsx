@@ -1,7 +1,7 @@
 "use client"
 import Link from "next/link"
 import Image from "next/image"
-import { Check, ChevronRight, Leaf, Mail, MapPin, Phone, Star, Lock, Clock, Shield, Plus } from "lucide-react"
+import { Check, ChevronRight, Leaf, Mail, MapPin, Phone, Star, Lock, Clock, Shield, Plus, Flower2, Scissors, Hammer, TreePine, Snowflake, Shovel, Wrench, ChevronLeft, Calendar, Palette } from "lucide-react"
 import { DM_Sans } from "next/font/google"
 import { useState, useEffect } from "react"
 import { useLanguage } from "@/context/LanguageContext"
@@ -10,6 +10,8 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Card, CardContent } from "@/components/ui/card"
+import { Badge } from "@/components/ui/badge"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Navigation } from "@/components/Navigation"
 import MapBox from "@/components/map"
 import MapLegend from "@/components/maplegend"
@@ -20,34 +22,64 @@ const dmSans = DM_Sans({ subsets: ["latin"] })
 
 const cloudFareBucket = `https://r2-worker.micacao15.workers.dev/image`
 
-const imagesArray = [
+const getProjects = (t: any, tArray: any) => [
   {
     id: 1,
+    title: t('portfolio.projects.project1.title'),
+    location: t('portfolio.projects.project1.location'),
+    duration: t('portfolio.projects.project1.duration'),
+    services: tArray('portfolio.projects.project1.services'),
+    description: t('portfolio.projects.project1.description'),
     before: "/images/BEFORE_FI.png",
     after: "/images/AFTER_FI.png"
   },
   {
     id: 2,
+    title: t('portfolio.projects.project2.title'),
+    location: t('portfolio.projects.project2.location'),
+    duration: t('portfolio.projects.project2.duration'),
+    services: tArray('portfolio.projects.project2.services'),
+    description: t('portfolio.projects.project2.description'),
     before: "/images/BEFORE_SE.jpg",
     after: "/images/AFTER_SE.png"
   },
   {
     id: 3,
+    title: t('portfolio.projects.project3.title'),
+    location: t('portfolio.projects.project3.location'),
+    duration: t('portfolio.projects.project3.duration'),
+    services: tArray('portfolio.projects.project3.services'),
+    description: t('portfolio.projects.project3.description'),
     before: `${cloudFareBucket}/before7.jpg`,
     after: `${cloudFareBucket}/after7.jpg`
   },
   {
     id: 4,
+    title: t('portfolio.projects.project4.title'),
+    location: t('portfolio.projects.project4.location'),
+    duration: t('portfolio.projects.project4.duration'),
+    services: tArray('portfolio.projects.project4.services'),
+    description: t('portfolio.projects.project4.description'),
     before: `${cloudFareBucket}/before8.jpg`,
     after: `${cloudFareBucket}/after8.jpg`
   },
   {
     id: 5,
+    title: t('portfolio.projects.project5.title'),
+    location: t('portfolio.projects.project5.location'),
+    duration: t('portfolio.projects.project5.duration'),
+    services: tArray('portfolio.projects.project5.services'),
+    description: t('portfolio.projects.project5.description'),
     before: `${cloudFareBucket}/before5.jpg`,
     after: `${cloudFareBucket}/after5.jpg`
   },
   {
     id: 6,
+    title: t('portfolio.projects.project6.title'),
+    location: t('portfolio.projects.project6.location'),
+    duration: t('portfolio.projects.project6.duration'),
+    services: tArray('portfolio.projects.project6.services'),
+    description: t('portfolio.projects.project6.description'),
     before: `${cloudFareBucket}/before1.jpg`,
     after: `${cloudFareBucket}/after1.jpg`
   }
@@ -65,15 +97,20 @@ export default function LandscapingLanding() {
   }
 
   const { t, tArray, language } = useLanguage();
+  const projects = getProjects(t, tArray);
   const [first, setFirst] = useState("");
   const [last, setLast] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [address, setAddress] = useState("");
   const [job, setJob] = useState("");
+  const [budget, setBudget] = useState("");
   const [information, setInformation] = useState("");
   const [images, setImages] = useState<File[]>([]);
   const [imageHover, setImageHover] = useState<number | null>(null);
+  const [hoveredCard, setHoveredCard] = useState<number | null>(null);
+  const [currentProject, setCurrentProject] = useState(0);
+  const [imageComparison, setImageComparison] = useState(50);
   const [sentSuccess, setSentSuccess] = useState(false);
   const [mobile, setMobile] = useState(true);
   const [showPopup, setShowPopup] = useState(false);
@@ -83,6 +120,16 @@ export default function LandscapingLanding() {
       setMobile(false);
     }
   }, [])
+
+  const nextProject = () => {
+    setCurrentProject((prev) => (prev + 1) % projects.length)
+    setImageComparison(50)
+  }
+
+  const prevProject = () => {
+    setCurrentProject((prev) => (prev - 1 + projects.length) % projects.length)
+    setImageComparison(50)
+  }
 
   async function getFreeQuote(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -101,6 +148,7 @@ export default function LandscapingLanding() {
     setImages([]);
     setInformation("");
     setJob("");
+    setBudget("");
     setPhone("");
 
     console.log('Number of images before conversion:', images.length);
@@ -121,6 +169,7 @@ export default function LandscapingLanding() {
         phone: phone,
         address: address,
         job: job,
+        budget: budget,
         information: information,
         images: base64strings
       })
@@ -181,9 +230,9 @@ export default function LandscapingLanding() {
 
         {/* Quote Form Section */}
         <section id="quote-form" className="py-16 md:py-24 bg-white">
-          <div className="container">
+          <div className="container px-4">
             <div className="max-w-2xl mx-auto text-center">
-              <h2 className={`${dmSans.className} text-3xl font-bold tracking-tight sm:text-4xl mb-6`}>
+              <h2 className={`${dmSans.className} text-3xl font-bold tracking-tight sm:text-4xl md:text-5xl mb-6`}>
                 {t('quoteForm.title')}
               </h2>
               <p className="text-gray-600 mb-8">
@@ -191,27 +240,21 @@ export default function LandscapingLanding() {
               </p>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 mb-8">
-                <div className="flex items-center gap-3">
-                  <div className="h-10 w-10 rounded-full bg-[#4f9132]/10 flex items-center justify-center">
+                <div className="flex items-center gap-3 p-3 rounded-lg bg-[#4f9132]/5">
+                  <div className="h-10 w-10 rounded-full bg-[#4f9132]/10 flex items-center justify-center flex-shrink-0">
                     <Check className="h-5 w-5 text-[#4f9132]" />
                   </div>
-                  <div className="text-sm">{t('quoteForm.freeQuotes')}</div>
+                  <div className="text-sm font-medium">{t('quoteForm.freeQuotes')}</div>
                 </div>
-                <div className="flex items-center gap-3">
-                  <div className="h-10 w-10 rounded-full bg-[#4f9132]/10 flex items-center justify-center">
+                <div className="flex items-center gap-3 p-3 rounded-lg bg-[#4f9132]/5">
+                  <div className="h-10 w-10 rounded-full bg-[#4f9132]/10 flex items-center justify-center flex-shrink-0">
                     <Clock className="h-5 w-5 text-[#4f9132]" />
                   </div>
-                  <div className="text-sm">{t('quoteForm.responseTime')}</div>
+                  <div className="text-sm font-medium">{t('quoteForm.responseTime')}</div>
                 </div>
               </div>
 
-              <div className="flex items-center gap-4 p-4 bg-[#4f9132]/10 mb-8">
-                <Phone className="h-5 w-5 text-[#4f9132]" />
-                <div>
-                  <div className="text-sm text-gray-600">{t('quoteForm.preferToTalk')}</div>
-                  <div className="font-medium">{t('quoteForm.callUs')} 514-945-6241</div>
-                </div>
-              </div>
+
 
               <form className="space-y-4" onSubmit={getFreeQuote}>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -221,20 +264,39 @@ export default function LandscapingLanding() {
                 <Input type="email" placeholder={t('quoteForm.email')} className="rounded-none" value={email} onChange={(e) => setEmail(e.target.value)} />
                 <Input type="tel" placeholder={t('quoteForm.phone')} className="rounded-none" value={phone} onChange={(e) => setPhone(e.target.value)} />
                 <Input type="address" placeholder={t('quoteForm.address')} className="rounded-none" value={address} onChange={(e) => setAddress(e.target.value)} />
-                <select value={job} onChange={(e) => setJob(e.target.value)} className="flex h-10 w-full rounded-none border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50">
-                  <option value="">{t('quoteForm.selectService')}</option>
-                  <option value="Design">{t('quoteForm.services.design')}</option>
-                  <option value="Maintenance">{t('quoteForm.services.maintenance')}</option>
-                  <option value="Planting">{t('quoteForm.services.planting')}</option>
-                  <option value="Other">{t('quoteForm.services.other')}</option>
-                </select>
+                <Select value={job} onValueChange={setJob}>
+                  <SelectTrigger>
+                    <SelectValue placeholder={t('quoteForm.selectService')} />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="Lawn Care">Lawn Care & Maintenance</SelectItem>
+                    <SelectItem value="Garden Design">Garden Design & Planning</SelectItem>
+                    <SelectItem value="Planting">Planting & Landscaping</SelectItem>
+                    <SelectItem value="Fertilization">Fertilization & Soil Care</SelectItem>
+                    <SelectItem value="Tree Services">Tree & Shrub Care</SelectItem>
+                    <SelectItem value="Seasonal Cleanup">Seasonal Cleanup</SelectItem>
+                    <SelectItem value="Other">Other Services</SelectItem>
+                  </SelectContent>
+                </Select>
+                <Select value={budget} onValueChange={setBudget}>
+                  <SelectTrigger>
+                    <SelectValue placeholder="What's your budget range?" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="Under $1,000">Under $1,000</SelectItem>
+                    <SelectItem value="$1,000 - $3,000">$1,000 - $3,000</SelectItem>
+                    <SelectItem value="$3,000 - $5,000">$3,000 - $5,000</SelectItem>
+                    <SelectItem value="$5,000+">$5,000+</SelectItem>
+                    <SelectItem value="Not sure">Not sure yet</SelectItem>
+                  </SelectContent>
+                </Select>
                 <Textarea
                   placeholder={t('quoteForm.projectDetails')}
                   className="min-h-[100px] rounded-none resize-none"
                   value={information}
                   onChange={(e) => setInformation(e.target.value)}
                 />
-                <label className="block text-sm font-medium text-gray-700">{t('quoteForm.uploadPictures')}</label>
+                <label className="block text-sm font-medium text-gray-700 text-left">{t('quoteForm.uploadPictures')}</label>
                 <input
                   type="file"
                   accept="image/*"
@@ -251,14 +313,28 @@ export default function LandscapingLanding() {
               </form>
             </div>
           </div>
-          <section className="container mt-16 sm:mt-36">
-            <div className="grid md:grid-cols-2 gap-8 sm:gap-12 items-start max-w-6xl mx-auto">
-              <div>
-                <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight max-w-[350px]">{t('map.title')}</h1>
-                <p className="mt-4 sm:mt-6 text-gray-600">{t('map.description')}</p>
+          <section className="relative mt-16 sm:mt-36 py-16 md:py-24">
+            {/* Background Image */}
+            <div className="absolute inset-0 z-0">
+              <Image
+                src="/images/mtlbanner.jpg"
+                alt="Montreal Banner"
+                fill
+                className="object-cover"
+              />
+              <div className="absolute inset-0 bg-black/40"></div>
+            </div>
+            
+            {/* Content */}
+            <div className="relative z-10 container px-4 sm:px-6 lg:px-8">
+              <div className="text-center max-w-4xl mx-auto mb-12 md:mb-16">
+                <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight text-white">{t('map.title')}</h1>
+                <p className="mt-4 sm:mt-6 text-white/90 max-w-3xl mx-auto">{t('map.description')}</p>
+              </div>
+              <div className="max-w-6xl mx-auto">
+                <MapBox />
               </div>
             </div>
-            <MapBox />
           </section>
         </section>
 
@@ -286,118 +362,331 @@ export default function LandscapingLanding() {
         )}
 
         {/* Services Section */}
-        <section id="services" className="py-16 md:py-24 bg-[#4f9132]/5">
-          <div className="container">
-            <div className="text-green-600 font-medium text-sm mb-2 text-center">{t('services.title')}</div>
-            <h2 className="text-3xl font-bold text-center mb-4">{t('services.subtitle')}</h2>
-            <p className="text-gray-600 text-center max-w-2xl mx-auto mb-12">{t('services.description')}</p>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <section id="services" className="py-16 md:py-24 bg-white">
+          <div className="container px-4">
+            <div className="text-center mb-12">
+              <h2 className={`${dmSans.className} text-3xl font-bold tracking-tight sm:text-4xl md:text-5xl mb-4`}>{t('services.subtitle')}</h2>
+              <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+                {t('services.description')}
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {[
                 {
-                  title: t('services.gardenBeds.title'),
-                  description: t('services.gardenBeds.description'),
-                  image: `${cloudFareBucket}/bedservice.jpg`,
+                  id: 1,
+                  title: t('services.gardenDesign.title'),
+                  image: "/images/services/flowerservice.jpg",
+                  services: tArray('services.gardenDesign.services'),
+                  description: t('services.gardenDesign.description')
                 },
                 {
+                  id: 2,
+                  title: t('services.maintenance.title'),
+                  image: "/images/maintenance.jpg",
+                  services: tArray('services.maintenance.services'),
+                  description: t('services.maintenance.description')
+                },
+                {
+                  id: 3,
+                  title: t('services.mulching.title'),
+                  image: "/images/mulch.png",
+                  services: tArray('services.mulching.services'),
+                  description: t('services.mulching.description')
+                },
+                {
+                  id: 4,
+                  title: t('services.paverRestoration.title'),
+                  image: "/images/paver.jpg",
+                  services: tArray('services.paverRestoration.services'),
+                  description: t('services.paverRestoration.description')
+                },
+                {
+                  id: 5,
                   title: t('services.lawnCare.title'),
-                  description: t('services.lawnCare.description'),
-                  image: `${cloudFareBucket}/lawncareservice.jpeg`,
+                  image: "/images/clean.jpg",
+                  services: tArray('services.lawnCare.services'),
+                  description: t('services.lawnCare.description')
                 },
                 {
-                  title: t('services.flowerPlanting.title'),
-                  description: t('services.flowerPlanting.description'),
-                  image: `${cloudFareBucket}/flowerservice.jpg`,
-                },
-              ].map((service, index) => (
-                <div key={index} className="group relative overflow-hidden">
-                  <div className="aspect-[4/5] relative">
-                    <Image
-                      src={service.image}
-                      alt={service.title}
-                      fill
-                      className="object-cover transition-transform group-hover:scale-105"
-                    />
-                    <div className="absolute bottom-0 left-0 right-0 p-6 bg-white m-4">
-                      <div className="flex items-start gap-4">
-                        <div className="flex-1">
-                          <h3 className="text-lg font-medium mb-2">{service.title}</h3>
-                          <p className="text-gray-500 text-sm">{service.description}</p>
+                  id: 6,
+                  title: t('services.pressureWashing.title'),
+                  image: "/images/pressurewash.jpg",
+                  services: tArray('services.pressureWashing.services'),
+                  description: t('services.pressureWashing.description')
+                }
+              ].map((category) => {
+                const isHovered = hoveredCard === category.id
+
+                return (
+                  <Card
+                    key={category.id}
+                    className={`relative overflow-hidden transition-all duration-500 ease-in-out transform cursor-pointer group rounded-none ${
+                      isHovered ? "scale-105 shadow-2xl" : "hover:scale-102 shadow-lg hover:shadow-xl"
+                    }`}
+                    onMouseEnter={() => setHoveredCard(category.id)}
+                    onMouseLeave={() => setHoveredCard(null)}
+                  >
+                    <CardContent className="p-0 h-80 relative">
+                      {/* Background Image */}
+                      <div className="absolute inset-0">
+                        <Image
+                          src={category.image}
+                          alt={category.title}
+                          fill
+                          className="object-cover transition-transform duration-300 group-hover:scale-110"
+                        />
+                        <div className="absolute inset-0 bg-black/50"></div>
+                      </div>
+
+                      {/* Content */}
+                      <div className="relative z-10 p-6 h-full flex flex-col justify-between text-white">
+                        <div>
+                          <h3 className="text-xl font-bold mb-3">{category.title}</h3>
+                          <p className="text-white/90 text-sm mb-4">{category.description}</p>
                         </div>
-                        <div className="bg-[#4f9132]/10 rounded-full p-2">
-                          <ChevronRight className="h-4 w-4 text-[#4f9132]" />
+
+                        {/* Services list - appears on hover */}
+                        <div
+                          className={`transition-all duration-300 ${
+                            isHovered ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+                          }`}
+                        >
+                          <div className="space-y-2">
+                            {category.services.map((service, index) => (
+                              <Badge
+                                key={index}
+                                variant="secondary"
+                                className="bg-white/20 text-white border-white/30 text-xs mr-2 mb-1 backdrop-blur-sm"
+                              >
+                                {service}
+                              </Badge>
+                            ))}
+                          </div>
+                        </div>
+
+                        {/* Decorative elements */}
+                        <div className="absolute bottom-4 left-4 opacity-10">
+                          <Shovel className="w-12 h-12" />
                         </div>
                       </div>
-                    </div>
-                  </div>
-                </div>
-              ))}
+
+                      {/* Hover overlay effect */}
+                      <div
+                        className={`absolute inset-0 bg-gradient-to-t from-black/60 to-transparent transition-opacity duration-300 ${
+                          isHovered ? "opacity-100" : "opacity-0"
+                        }`}
+                      ></div>
+                    </CardContent>
+                  </Card>
+                )
+              })}
             </div>
-            <div className="mt-12 flex items-center justify-center text-xs md:text-lg">
-              <div className="bg-[#4f9132]/5 rounded-full py-3 px-4 md:px-6 flex items-center gap-1 md:gap-3">
-                <span className="font-medium">{t('services.additionalServices')}</span>
-                <div className="flex items-center gap-4 text-gray-600">
-                  <span>{t('services.fallCleanup')}</span>
-                  <div className="h-1 w-1 rounded-full bg-gray-300" />
-                  <span>{t('services.trimming')}</span>
-                  <div className="h-1 w-1 rounded-full bg-gray-300" />
+
+
+          </div>
+        </section>
+
+        {/* Portfolio Section */}
+        <section id="portfolio" className="py-16 md:py-24 bg-white">
+          <div className="container px-4">
+            <div className="text-center mb-12">
+              <h2 className={`${dmSans.className} text-3xl font-bold tracking-tight sm:text-4xl md:text-5xl`}>{t('portfolio.mainTitle')}</h2>
+              <p className="mt-4 text-lg text-gray-600 max-w-2xl mx-auto">
+                {t('portfolio.subtitle')}
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+              {/* Main Before/After Comparison */}
+              <div className="lg:col-span-2">
+                <Card className="border border-gray-200 shadow-lg overflow-hidden rounded-none">
+                  <CardContent className="p-0">
+                    {/* Image Comparison */}
+                    <div className="relative h-[700px] overflow-hidden">
+                      {/* Before Image */}
+                      <Image
+                        src={projects[currentProject]?.before || "/images/BEFORE_FI.png"}
+                        alt={`Before: ${projects[currentProject]?.title}`}
+                        fill
+                        className="object-cover"
+                      />
+
+                      {/* After Image with clip-path */}
+                      <div
+                        className="absolute inset-0 overflow-hidden"
+                        style={{ clipPath: `inset(0 ${100 - imageComparison}% 0 0)` }}
+                      >
+                        <Image
+                          src={projects[currentProject]?.after || "/images/AFTER_FI.png"}
+                          alt={`After: ${projects[currentProject]?.title}`}
+                          fill
+                          className="object-cover"
+                        />
+                      </div>
+
+                      {/* Slider Handle */}
+                      <div
+                        className="absolute top-0 bottom-0 w-1 bg-white shadow-lg cursor-ew-resize z-10"
+                        style={{ left: `${imageComparison}%` }}
+                        onMouseDown={(e) => {
+                          const rect = e.currentTarget.parentElement?.getBoundingClientRect()
+                          if (!rect) return
+
+                          const handleMouseMove = (e: MouseEvent) => {
+                            const x = e.clientX - rect.left
+                            const percentage = Math.max(0, Math.min(100, (x / rect.width) * 100))
+                            setImageComparison(percentage)
+                          }
+
+                          const handleMouseUp = () => {
+                            document.removeEventListener("mousemove", handleMouseMove)
+                            document.removeEventListener("mouseup", handleMouseUp)
+                          }
+
+                          document.addEventListener("mousemove", handleMouseMove)
+                          document.addEventListener("mouseup", handleMouseUp)
+                        }}
+                      >
+                        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-8 h-8 bg-white rounded-full shadow-lg flex items-center justify-center">
+                          <div className="w-4 h-4 bg-gray-400 rounded-full"></div>
+                        </div>
+                      </div>
+
+                      {/* Before/After Labels */}
+                      <div className="absolute top-4 left-4 bg-black/70 text-white px-3 py-1 rounded text-sm font-medium">
+                        {t('portfolio.before')}
+                      </div>
+                      <div className="absolute top-4 right-4 bg-black/70 text-white px-3 py-1 rounded text-sm font-medium">
+                        {t('portfolio.after')}
+                      </div>
+
+                      {/* Navigation Arrows */}
+                      <Button
+                        variant="outline"
+                        size="icon"
+                        className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-white/90 hover:bg-white rounded-none"
+                        onClick={prevProject}
+                      >
+                        <ChevronLeft className="w-4 h-4" />
+                      </Button>
+                      <Button
+                        variant="outline"
+                        size="icon"
+                        className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-white/90 hover:bg-white rounded-none"
+                        onClick={nextProject}
+                      >
+                        <ChevronRight className="w-4 h-4" />
+                      </Button>
+                    </div>
+
+                    {/* Project Details */}
+                    <div className="p-6">
+                      <h3 className="text-xl font-bold text-gray-900 mb-2">{projects[currentProject]?.title}</h3>
+                      <p className="text-gray-600 mb-4">
+                        {projects[currentProject]?.description}
+                      </p>
+
+                      <div className="flex flex-wrap gap-4 text-sm text-gray-500 mb-4">
+                        <div className="flex items-center gap-1">
+                          <MapPin className="w-4 h-4" />
+                          {projects[currentProject]?.location}
+                        </div>
+                        <div className="flex items-center gap-1">
+                          <Calendar className="w-4 h-4" />
+                          {projects[currentProject]?.duration}
+                        </div>
+                      </div>
+
+                      <div className="flex flex-wrap gap-2">
+                        {projects[currentProject]?.services.map((service: string, index: number) => (
+                          <Badge key={index} variant="secondary" className="bg-green-50 text-green-700 border-green-200">
+                            {service}
+                          </Badge>
+                        ))}
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              </div>
+
+              {/* Project Thumbnails */}
+              <div className="space-y-4">
+                <h4 className="font-semibold text-gray-900">More Projects</h4>
+                {projects.map((project, index) => (
+                  <Card
+                    key={project.id}
+                    className={`cursor-pointer transition-all duration-200 rounded-none ${
+                      index === currentProject
+                        ? "border-green-500 shadow-md"
+                        : "border-gray-200 hover:border-gray-300 hover:shadow-sm"
+                    }`}
+                    onClick={() => {
+                      setCurrentProject(index)
+                      setImageComparison(50)
+                    }}
+                  >
+                    <CardContent className="p-4">
+                      <div className="flex gap-3">
+                        <div className="flex-shrink-0">
+                          <Image
+                            src={project.after}
+                            alt={project.title}
+                            width={64}
+                            height={64}
+                            className="object-cover"
+                          />
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <h5 className="font-medium text-gray-900 text-sm truncate">{project.title}</h5>
+                          <p className="text-xs text-gray-500 mt-1">{project.location}</p>
+                          <div className="flex gap-1 mt-2">
+                            {project.services.slice(0, 2).map((service: string, idx: number) => (
+                              <Badge key={idx} variant="secondary" className="text-xs bg-gray-100 text-gray-600">
+                                {service}
+                              </Badge>
+                            ))}
+                            {project.services.length > 2 && (
+                              <Badge variant="secondary" className="text-xs bg-gray-100 text-gray-600">
+                                +{project.services.length - 2}
+                              </Badge>
+                            )}
+                          </div>
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
+            </div>
+
+            {/* Project Counter */}
+            <div className="text-center mt-8">
+              <div className="inline-flex items-center gap-2 bg-gray-100 rounded-full px-4 py-2">
+                <span className="text-sm text-gray-600">
+                  Project {currentProject + 1} of {projects.length}
+                </span>
+                <div className="flex gap-1">
+                  {projects.map((_, index) => (
+                    <div
+                      key={index}
+                      className={`w-2 h-2 rounded-full transition-colors ${
+                        index === currentProject ? "bg-green-600" : "bg-gray-300"
+                      }`}
+                    />
+                  ))}
                 </div>
               </div>
             </div>
           </div>
         </section>
 
-        {/* Portfolio Section */}
-        <section id="portfolio" className="py-16 md:py-24 bg-white">
-          <div className="container">
-            <div className="text-center mb-12">
-              <h2 className={`${dmSans.className} text-3xl font-bold tracking-tight sm:text-4xl md:text-5xl`}>{t('portfolio.title')}</h2>
-              <p className="mt-4 text-lg text-gray-600 max-w-2xl mx-auto">
-                {t('portfolio.subtitle')}
-              </p>
-            </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
-              {imagesArray.map((item) => (
-                <div key={item.after}>
-                <div className="relative group overflow-hidden rounded-lg">
-                <div className="aspect-square relative group">
-                  {/* Before Image */}
-                  <Image
-                    src={item.before}
-                    alt={`Before image of ${item.id}`}
-                    fill
-                    className={`object-cover transition-opacity duration-300 ${imageHover === item.id ? 'opacity-0' : 'opacity-100'}`}
-                    priority
-                    loading="eager"
-                  />
-
-                  {/* After Image */}
-                  <Image
-                    src={item.after}
-                    alt={`After image of ${item.id}`}
-                    fill
-                    className={`object-cover transition-opacity duration-300 absolute top-0 left-0 ${imageHover === item.id ? 'opacity-100' : 'opacity-0'}`}
-                    priority
-                    loading="eager"
-                  />
-                </div>
-                  <div className="absolute bottom-2 sm:bottom-4 right-2 sm:right-4 bg-white shadow-lg rounded-lg p-2 sm:p-3 z-50 w-24 sm:w-32 gap-1 z-[0]">
-                    <h3 className="text-xs text-zinc-600">{mobile ? t('portfolio.clickText') : t('portfolio.hoverText')}</h3>
-                  </div>
-                  <div className="absolute inset-0 bg-gradient-to-t to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4 sm:p-6" onMouseEnter={() => setImageHover(item.id)} onMouseLeave={() => setImageHover(null)} onClick={() => setImageHover(item.id)}>
-                  </div>
-                </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
         {/* About Section */}
         <section id="about" className="py-16 md:py-24 bg-[#4f9132]/5">
-          <div className="container">
+          <div className="container px-4">
             <div className="grid md:grid-cols-2 gap-8 sm:gap-12 items-center">
               <div>
-                <h2 className={`${dmSans.className} text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight`}>{t('about.title')}</h2>
+                <h2 className={`${dmSans.className} text-3xl font-bold tracking-tight sm:text-4xl md:text-5xl`}>{t('about.title')}</h2>
                 <p className="mt-4 text-base sm:text-lg text-gray-600">
                   {t('about.description')}
                 </p>
@@ -412,10 +701,10 @@ export default function LandscapingLanding() {
               </div>
               <div className="flex items-center justify-center relative h-[250px] sm:h-[300px] md:h-[400px] rounded-lg overflow-hidden">
                 <Image
-                  src={language === 'fr' ? "/images/LOGO-1.png" : "/images/LOGO-2.png"}
+                  src={language === 'fr' ? "/images/LOGO-1.png" : "/images/bannerlong.png"}
                   alt="Our team"
-                  width={400}
-                  height={100}
+                  width={600}
+                  height={150}
                   className="object-contain"
                 />
               </div>
@@ -424,15 +713,15 @@ export default function LandscapingLanding() {
         </section>
       </main>
       <footer className="bg-[#1a1a1a] text-white py-12">
-        <div className="container">
+        <div className="container px-4">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
             <div>
               <div className="mb-4">
                 <Image
-                  src="/images/junglelonglogo.png"
+                  src={language === 'fr' ? "/images/junglelogo_fr_w.png" : "/images/junglelonglogo.png"}
                   alt="Jungle Logo"
-                  width={280}
-                  height={75}
+                  width={420}
+                  height={112}
                   className="object-contain"
                 />
               </div>

@@ -85,7 +85,7 @@ export function Navigation() {
 
       {/* Desktop Navigation */}
       {!mobile && (
-        <div className="container flex h-16 items-center justify-between py-4">
+        <div className="container px-4 flex h-16 items-center justify-between py-4">
           <div className="flex items-center">
             <img
               src={language === 'fr' ? "/images/LOGO-1.png" : "/images/bannerlong.png"}

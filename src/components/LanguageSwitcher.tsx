@@ -15,7 +15,7 @@ export function LanguageSwitcher() {
       variant="outline"
       size="sm"
       onClick={toggleLanguage}
-      className="min-w-[50px] font-medium"
+      className="min-w-[50px] font-medium rounded-none"
     >
       {language === 'en' ? 'EN' : 'FR'}
     </Button>
